@@ -121,7 +121,7 @@ import { Button, cn } from "@passu/ui";
 
 - `src/` 하위에서는 default export를 금지하고 named export만 사용합니다
 - 순수 함수(`utils/`)는 React/DOM에 의존하지 않습니다
-- 커밋 메시지는 Conventional Commits 타입 프리픽스(`feat:`, `fix:`, `chore:` 등) + 한글 설명으로 작성하며, commitlint가 커밋 시 자동으로 검사합니다
+- 커밋 메시지는 Conventional Commits 타입 프리픽스(`feat:`, `fix:`, `chore:` 등) + 한글 설명으로 작성하며, lefthook의 commit-msg 훅이 커밋 시 자동으로 검사합니다
 
 ---
 
