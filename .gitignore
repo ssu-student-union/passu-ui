@@ -1,0 +1,29 @@
+# dependencies
+node_modules
+
+# output
+out
+dist
+*.tgz
+
+# code coverage
+coverage
+*.lcov
+
+# logs
+logs
+*.log
+
+# caches
+.eslintcache
+.cache
+*.tsbuildinfo
+
+# IntelliJ based IDEs
+.idea
+
+# mise local overrides (mise.toml is committed; this is per-developer)
+.mise.toml
+
+# Finder (MacOS) folder config
+.DS_Store
