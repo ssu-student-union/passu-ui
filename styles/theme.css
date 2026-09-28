@@ -230,13 +230,17 @@
 
   --fill-neutral: var(--color-gray-50);
   --fill-neutral-subtle: var(--color-gray-25);
+  --fill-neutral-subtle-hovered: var(--color-gray-50);
   --fill-neutral-hovered: var(--color-gray-100);
   --fill-disabled: var(--color-gray-25);
   --fill-brand: var(--color-primary-500);
   --fill-brand-hovered: var(--color-primary-600);
   --fill-brand-subtle: var(--color-primary-50);
+  --fill-brand-subtle-hovered: var(--color-primary-100);
   --fill-danger: var(--color-red-500);
+  --fill-danger-hovered: var(--color-red-600);
   --fill-danger-subtle: var(--color-red-50);
+  --fill-danger-subtle-hovered: var(--color-red-100);
 
   --bg-canvas: var(--color-base-white);
   --bg-surface: var(--color-gray-25);
@@ -269,13 +273,17 @@
 
   --color-fill-neutral: var(--fill-neutral);
   --color-fill-neutral-subtle: var(--fill-neutral-subtle);
+  --color-fill-neutral-subtle-hovered: var(--fill-neutral-subtle-hovered);
   --color-fill-neutral-hovered: var(--fill-neutral-hovered);
   --color-fill-disabled: var(--fill-disabled);
   --color-fill-brand: var(--fill-brand);
   --color-fill-brand-hovered: var(--fill-brand-hovered);
   --color-fill-brand-subtle: var(--fill-brand-subtle);
+  --color-fill-brand-subtle-hovered: var(--fill-brand-subtle-hovered);
   --color-fill-danger: var(--fill-danger);
+  --color-fill-danger-hovered: var(--fill-danger-hovered);
   --color-fill-danger-subtle: var(--fill-danger-subtle);
+  --color-fill-danger-subtle-hovered: var(--fill-danger-subtle-hovered);
 
   --color-bg-canvas: var(--bg-canvas);
   --color-bg-surface: var(--bg-surface);
