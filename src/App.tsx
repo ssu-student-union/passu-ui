@@ -1,8 +1,10 @@
+import PlaceholderIcon from "@/assets/icons/placeholder.svg?react";
 import {
   Badge,
   Button,
   Checkbox,
   CheckIndicator,
+  Chip,
   Divider,
   Header,
   Icon,
@@ -116,8 +118,93 @@ export function App() {
             gap: 8,
           }}
         >
-          <Badge theme="neutral">뱃지</Badge>
-          <Badge theme="positive">뱃지</Badge>
+          <Badge
+            size="sm"
+            theme="neutral"
+          >
+            뱃지
+          </Badge>
+          <Badge
+            size="sm"
+            theme="brand"
+          >
+            뱃지
+          </Badge>
+          <Badge
+            size="sm"
+            theme="danger"
+          >
+            뱃지
+          </Badge>
+          <Badge
+            size="lg"
+            theme="neutral"
+          >
+            뱃지
+          </Badge>
+          <Badge
+            size="lg"
+            theme="brand"
+          >
+            뱃지
+          </Badge>
+          <Badge
+            size="lg"
+            theme="danger"
+          >
+            뱃지
+          </Badge>
+        </div>
+
+        <div
+          style={{
+            background: "#fff",
+            padding: 24,
+            borderRadius: 8,
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+          }}
+        >
+          <Chip
+            variant="filter"
+            theme="neutral"
+            leadingIcon={PlaceholderIcon}
+          >
+            레이블
+          </Chip>
+          <Chip
+            variant="filter"
+            theme="brand"
+          >
+            레이블
+          </Chip>
+          <Chip
+            variant="input"
+            theme="neutral"
+            onRemove={() => {}}
+          >
+            레이블
+          </Chip>
+          <Chip
+            variant="input"
+            theme="brand"
+            onRemove={() => {}}
+          >
+            레이블
+          </Chip>
+          <Chip
+            variant="guidance"
+            theme="neutral"
+          >
+            레이블
+          </Chip>
+          <Chip
+            variant="guidance"
+            theme="brand"
+          >
+            레이블
+          </Chip>
         </div>
       </div>
 

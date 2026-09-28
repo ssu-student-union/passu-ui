@@ -4,6 +4,7 @@ export * from "./components/atoms/badge";
 export * from "./components/atoms/button";
 export * from "./components/atoms/check-indicator";
 export * from "./components/atoms/checkbox";
+export * from "./components/atoms/chip";
 export * from "./components/atoms/divider";
 export * from "./components/atoms/header";
 export * from "./components/atoms/icon";
