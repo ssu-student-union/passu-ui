@@ -1,3 +1,4 @@
+import { useState } from "react";
 import PlaceholderIcon from "@/assets/icons/placeholder.svg?react";
 import {
   Badge,
@@ -10,11 +11,14 @@ import {
   Icon,
   Radio,
   TextButton,
+  TextField,
   TopBar,
   VerificationItem,
 } from "./index";
 
 export function App() {
+  const [name, setName] = useState("입력된 값");
+
   return (
     <div style={{ padding: 24, display: "flex", flexDirection: "column", gap: 24 }}>
       <div style={{ display: "flex", gap: 12, background: "#3a3a3a", padding: 24 }}>
@@ -284,6 +288,55 @@ export function App() {
           <VerificationItem
             label="본인 인증"
             status="complete"
+          />
+        </div>
+      </div>
+
+      <div style={{ display: "flex", gap: 12, background: "#3a3a3a", padding: 24 }}>
+        <div
+          style={{
+            background: "#fff",
+            padding: 24,
+            borderRadius: 8,
+            display: "flex",
+            flexDirection: "column",
+            gap: 16,
+            width: 360,
+          }}
+        >
+          <TextField
+            label="레이블"
+            required
+            helperText="서브레이블"
+            placeholder="표시자"
+          />
+
+          <TextField
+            label="레이블"
+            required
+            status="error"
+            helperText="서브레이블"
+            placeholder="표시자"
+            invalid
+          />
+
+          <TextField
+            label="레이블"
+            required
+            status="success"
+            helperText="서브레이블"
+            placeholder="표시자"
+            value={name}
+            onChange={e => setName(e.target.value)}
+            onClear={() => setName("")}
+          />
+
+          <TextField
+            label="비밀번호"
+            required
+            helperText="서브레이블"
+            placeholder="표시자"
+            visibilityToggle
           />
         </div>
       </div>
