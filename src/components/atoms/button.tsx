@@ -1,6 +1,7 @@
-import type { ComponentProps, ReactNode } from "react";
+import type { ComponentProps } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 import { cn } from "@/utils/cn";
+import type { IconComponent } from "@/utils/icon";
 
 export const buttonVariants = tv({
   base: "inline-flex shrink-0 items-center justify-center disabled:pointer-events-none disabled:bg-fill-disabled disabled:text-fg-disabled",
@@ -38,9 +39,15 @@ const labelSizeClassName = {
   sm: "h-4",
 } as const;
 
+const iconSizeClassName = {
+  lg: "size-6",
+  md: "size-5",
+  sm: "size-4",
+} as const;
+
 export interface ButtonProps extends ComponentProps<"button">, VariantProps<typeof buttonVariants> {
-  leadingIcon?: ReactNode;
-  trailingIcon?: ReactNode;
+  leadingIcon?: IconComponent;
+  trailingIcon?: IconComponent;
 }
 
 export function Button({
@@ -48,8 +55,8 @@ export function Button({
   size = "lg",
   theme,
   variant,
-  leadingIcon,
-  trailingIcon,
+  leadingIcon: LeadingIcon,
+  trailingIcon: TrailingIcon,
   children,
   ...props
 }: ButtonProps) {
@@ -59,7 +66,7 @@ export function Button({
       className={cn(buttonVariants({ size, theme, variant }), className)}
       {...props}
     >
-      {leadingIcon}
+      {LeadingIcon && <LeadingIcon className={iconSizeClassName[size]} />}
       {children && (
         <span
           className={cn("flex shrink-0 items-center justify-center px-1", labelSizeClassName[size])}
@@ -67,7 +74,7 @@ export function Button({
           {children}
         </span>
       )}
-      {trailingIcon}
+      {TrailingIcon && <TrailingIcon className={iconSizeClassName[size]} />}
     </button>
   );
 }
