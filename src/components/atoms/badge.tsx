@@ -1,27 +1,46 @@
 import type { ComponentProps } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 import { cn } from "@/utils/cn";
+import type { IconComponent } from "@/utils/icon";
 
 export const badgeVariants = tv({
-  base: "inline-flex shrink-0 items-center justify-center gap-0.5 rounded-4 p-1 text-caption1-12",
+  base: "inline-flex shrink-0 items-center justify-center rounded-4",
   variants: {
+    size: {
+      sm: "gap-0.5 p-1 text-caption1-12",
+      lg: "gap-1 px-2 py-1 text-body5-14",
+    },
     theme: {
       neutral: "bg-fill-neutral text-fg-alternative",
-      positive: "bg-fill-brand-subtle text-fg-brand-default",
+      brand: "bg-fill-brand-subtle text-fg-brand-default",
+      danger: "bg-fill-danger-subtle text-fg-danger-default",
     },
   },
   defaultVariants: {
+    size: "sm",
     theme: "neutral",
   },
 });
 
-export interface BadgeProps extends ComponentProps<"span">, VariantProps<typeof badgeVariants> {}
+export interface BadgeProps extends ComponentProps<"span">, VariantProps<typeof badgeVariants> {
+  leadingIcon?: IconComponent;
+}
 
-export function Badge({ className, theme, ...props }: BadgeProps) {
+export function Badge({
+  className,
+  size,
+  theme,
+  leadingIcon: LeadingIcon,
+  children,
+  ...props
+}: BadgeProps) {
   return (
     <span
-      className={cn(badgeVariants({ theme }), className)}
+      className={cn(badgeVariants({ size, theme }), className)}
       {...props}
-    />
+    >
+      {LeadingIcon && <LeadingIcon className="size-4" />}
+      {children}
+    </span>
   );
 }
