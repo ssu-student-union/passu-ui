@@ -1,4 +1,4 @@
-# @passu/ui
+# @ssu-it-support/passu-ui
 
 ## 0.1.0
 
