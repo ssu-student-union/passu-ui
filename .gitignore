@@ -27,3 +27,6 @@ logs
 
 # Finder (MacOS) folder config
 .DS_Store
+
+# storybook
+storybook-static

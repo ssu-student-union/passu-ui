@@ -86,6 +86,16 @@
       }
     },
     {
+      "includes": ["src/**/*.stories.tsx"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noDefaultExport": "off"
+          }
+        }
+      }
+    },
+    {
       "includes": ["src/utils/**"],
       "linter": {
         "rules": {
