@@ -92,16 +92,16 @@ pnpm run build
 | `pnpm run lint:fix`  | Biome 린트 자동 수정                               |
 | `pnpm run format:fix`| Biome 자동 포맷                                    |
 | `pnpm run knip`      | 사용하지 않는 파일/의존성/export 검사               |
+| `pnpm changeset`     | 변경 사항과 버전 단위(patch/minor/major) 기록      |
 
 ---
 
 ## 📦 다른 앱에서 사용하기
 
-아직 npm 레지스트리에 배포하지 않아, 로컬 개발 중에는 형제 디렉토리를 pnpm `link:`로 직접 참조합니다.
+npm 레지스트리에 [`@passu/ui`](https://www.npmjs.com/package/@passu/ui)로 배포되어 있습니다.
 
-```json
-// admin, user의 package.json
-"@passu/ui": "link:../ui"
+```bash
+pnpm add @passu/ui
 ```
 
 ```tsx
@@ -112,9 +112,27 @@ import { Button, cn } from "@passu/ui";
 /* admin, user의 index.css */
 @import "tailwindcss";
 @import "@passu/ui/theme.css";
+
+/* Tailwind는 node_modules를 스캔하지 않으므로 컴포넌트 클래스를 수집하도록 경로를 지정합니다. */
+@source "../node_modules/@passu/ui/dist";
 ```
 
-이 레포에서 `pnpm run build`로 `dist/`를 갱신해야 `admin`/`user`가 최신 컴포넌트를 사용합니다.
+### 로컬에서 앱과 함께 개발하기
+
+배포 전 변경 사항을 앱에서 확인하려면 앱 레포에서 로컬 ui를 링크합니다. 이 레포에서 `pnpm run build`로 `dist/`를 갱신해야 반영됩니다.
+
+```bash
+pnpm link ../ui    # 링크
+pnpm unlink @passu/ui && pnpm install    # 해제
+```
+
+### 배포
+
+[Changesets](https://github.com/changesets/changesets)로 버전을 관리합니다.
+
+1. 사용자에게 영향이 있는 변경이면 PR에 `pnpm changeset`으로 만든 changeset 파일을 함께 커밋합니다.
+2. `main`에 머지되면 GitHub Actions가 "chore: 패키지 버전 업데이트" PR을 자동으로 엽니다.
+3. 그 PR을 머지하면 버전이 올라가고 npm에 자동 배포됩니다.
 
 ---
 
