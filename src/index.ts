@@ -14,6 +14,8 @@ export * from "./components/atoms/status-icon";
 export * from "./components/atoms/text-button";
 export * from "./components/atoms/text-field";
 export * from "./components/atoms/top-bar";
+export * from "./components/molecules/info-card";
 export * from "./components/molecules/status-message";
+export * from "./components/molecules/summary-item";
 export * from "./components/molecules/verification-item";
 export { cn } from "./utils/cn";

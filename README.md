@@ -72,8 +72,8 @@ PASSU `admin`·`user` 앱이 공유하는 UI 컴포넌트 라이브러리입니�
 # 의존성 설치 (lefthook 훅도 함께 설치됩니다)
 pnpm install
 
-# 컴포넌트를 눈으로 확인하는 플레이그라운드 실행
-pnpm dev
+# 컴포넌트를 눈으로 확인하는 Storybook 실행 (http://localhost:6006)
+pnpm storybook
 
 # 라이브러리 빌드 (dist/passu-ui.js, dist/passu-ui.css, dist/index.d.ts 생성)
 pnpm run build
@@ -85,7 +85,8 @@ pnpm run build
 
 | 명령어              | 설명                                              |
 | ------------------- | -------------------------------------------------- |
-| `pnpm dev`           | 플레이그라운드(`App.tsx`) 개발 서버 실행           |
+| `pnpm storybook`     | Storybook 개발 서버 실행 (`src/stories`)           |
+| `pnpm build-storybook` | Storybook 정적 빌드 (`storybook-static/`)       |
 | `pnpm run build`     | 타입체크 → `vite build` → 선언 파일(`.d.ts`) 생성  |
 | `pnpm run lint`      | Biome 린트 검사                                    |
 | `pnpm run lint:fix`  | Biome 린트 자동 수정                               |

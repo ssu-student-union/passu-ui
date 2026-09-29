@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { iconArgType } from "@/storybook/icon-arg-type";
-import { Badge } from "./badge";
+import { Badge } from "@/components/atoms/badge";
+import { iconArgType } from "@/stories/utils/icon-arg-type";
 
 const meta = {
   title: "Atoms/Badge",

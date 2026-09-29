@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { fn } from "storybook/test";
-import { Icon } from "./icon";
-import { TopBar } from "./top-bar";
+import { Icon } from "@/components/atoms/icon";
+import { TopBar } from "@/components/atoms/top-bar";
 
 const meta = {
   title: "Atoms/TopBar",

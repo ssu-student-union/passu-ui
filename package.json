@@ -16,9 +16,7 @@
     "./theme.css": "./styles/theme.css"
   },
   "scripts": {
-    "dev": "vite",
     "build": "tsc --noEmit && vite build && tsc -p tsconfig.build.json",
-    "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "lint": "biome lint .",

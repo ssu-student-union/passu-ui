@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { StatusIcon } from "./status-icon";
+import { StatusIcon } from "@/components/atoms/status-icon";
 
 const meta = {
   title: "Atoms/StatusIcon",
