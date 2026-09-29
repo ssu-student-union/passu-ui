@@ -1,0 +1,36 @@
+name: 릴리스
+
+on:
+  push:
+    branches: [main]
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      # mise.toml에 고정된 Node·pnpm 버전을 그대로 사용합니다.
+      - uses: jdx/mise-action@c37c93293d6b742fc901e1406b8f764f6fb19dac # v2.4.4
+
+      - name: 의존성 설치
+        run: pnpm install --frozen-lockfile
+
+      # 미반영 changeset이 있으면 "버전 업데이트" PR을 열고,
+      # 그 PR이 머지되어 새 버전이 main에 올라오면 v{버전} 태그를 만들어 push합니다.
+      # 앱은 이 태그를 Git 의존성으로 참조합니다. (npm에는 배포하지 않습니다)
+      - name: 버전 PR 생성 또는 태그 생성
+        uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d # v1.9.0
+        with:
+          version: pnpm run version-packages
+          publish: pnpm run release
+          title: "chore: 패키지 버전 업데이트"
+          commit: "chore: 패키지 버전 업데이트"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

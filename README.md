@@ -92,16 +92,24 @@ pnpm run build
 | `pnpm run lint:fix`  | Biome 린트 자동 수정                               |
 | `pnpm run format:fix`| Biome 자동 포맷                                    |
 | `pnpm run knip`      | 사용하지 않는 파일/의존성/export 검사               |
+| `pnpm changeset`     | 변경 사항과 버전 단위(patch/minor/major) 기록      |
 
 ---
 
 ## 📦 다른 앱에서 사용하기
 
-아직 npm 레지스트리에 배포하지 않아, 로컬 개발 중에는 형제 디렉토리를 pnpm `link:`로 직접 참조합니다.
+이 레포는 비공개라서 npm에 배포하지 않고, `admin`·`user`가 GitHub의 **릴리스 태그**를 Git 의존성으로 설치합니다.
 
 ```json
 // admin, user의 package.json
-"@passu/ui": "link:../ui"
+"@passu/ui": "github:ssu-student-union/passu-ui#v0.1.0"
+```
+
+```yaml
+# admin, user의 pnpm-workspace.yaml
+# 설치할 때 ui의 dist를 빌드(prepack)해야 하므로 빌드 실행을 허용합니다.
+allowBuilds:
+  "@passu/ui@git+https://github.com/ssu-student-union/passu-ui.git": true
 ```
 
 ```tsx
@@ -114,7 +122,39 @@ import { Button, cn } from "@passu/ui";
 @import "@passu/ui/theme.css";
 ```
 
-이 레포에서 `pnpm run build`로 `dist/`를 갱신해야 `admin`/`user`가 최신 컴포넌트를 사용합니다.
+### 인증
+
+비공개 레포라서 설치할 때 GitHub 인증이 필요합니다.
+
+- **로컬:** `gh auth login` 또는 SSH 키 등 이미 GitHub에 접근할 수 있으면 별도 설정이 필요 없습니다.
+- **CI·배포 환경:** `passu-ui`의 Contents 읽기 권한이 있는 토큰(`PASSU_UI_PAT`)을 git에 등록한 뒤 설치합니다.
+
+```yaml
+- name: passu-ui 접근 설정
+  run: git config --global url."https://x-access-token:${PASSU_UI_PAT}@github.com/".insteadOf "https://github.com/"
+  env:
+    PASSU_UI_PAT: ${{ secrets.PASSU_UI_PAT }}
+```
+
+### 로컬에서 앱과 함께 개발하기
+
+배포 전 변경 사항을 앱에서 확인하려면 앱 레포에서 로컬 ui를 링크합니다. 이 레포에서 `pnpm run build`로 `dist/`를 갱신해야 반영됩니다.
+
+```bash
+pnpm link ../ui    # 링크
+pnpm unlink @passu/ui && pnpm install    # 해제
+```
+
+링크로 바뀐 `package.json`·lockfile은 커밋하지 않도록 주의합니다.
+
+### 릴리스
+
+[Changesets](https://github.com/changesets/changesets)로 버전과 태그를 관리합니다.
+
+1. 사용자에게 영향이 있는 변경이면 PR에 `pnpm changeset`으로 만든 changeset 파일을 함께 커밋합니다.
+2. `main`에 머지되면 GitHub Actions가 "chore: 패키지 버전 업데이트" PR을 자동으로 엽니다.
+3. 그 PR을 머지하면 `v{버전}` 태그가 만들어집니다.
+4. 앱에서 의존성의 `#v0.1.0`을 새 태그로 올리고 `pnpm install`합니다.
 
 ---
 
