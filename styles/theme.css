@@ -210,6 +210,45 @@
   --spacing-20: 5rem;
 }
 
+/* ---------------------------------------------------------------- */
+/* Motion
+/* ---------------------------------------------------------------- */
+@theme {
+  --ease-in-out-smooth: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-in-out-continuous: cubic-bezier(0.5, 0.15, 0.5, 0.85);
+
+  --animate-spinner-orbit: spinner-orbit 1.4s var(--ease-in-out-continuous) infinite;
+  --animate-spinner-squash: spinner-squash 1.4s var(--ease-in-out-smooth) infinite;
+  --animate-spinner-dot-in: spinner-dot-in 300ms var(--ease-in-out-smooth) both;
+  --animate-spinner-dot-out: spinner-dot-out 300ms var(--ease-in-out-smooth) both;
+
+  @keyframes spinner-orbit {
+    to {
+      rotate: 360deg;
+    }
+  }
+
+  @keyframes spinner-squash {
+    50% {
+      transform: scale(0.5);
+    }
+  }
+
+  @keyframes spinner-dot-in {
+    from {
+      opacity: 0;
+      scale: 0.3;
+    }
+  }
+
+  @keyframes spinner-dot-out {
+    to {
+      opacity: 0;
+      scale: 0.3;
+    }
+  }
+}
+
 /*
  * Color / Semantic tokens
  */
