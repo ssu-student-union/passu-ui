@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { fn } from "storybook/test";
-import { iconArgType } from "@/storybook/icon-arg-type";
-import { Chip } from "./chip";
+import { Chip } from "@/components/atoms/chip";
+import { iconArgType } from "@/stories/utils/icon-arg-type";
 
 const meta = {
   title: "Atoms/Chip",

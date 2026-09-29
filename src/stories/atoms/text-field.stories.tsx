@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { TextField } from "./text-field";
+import { TextField } from "@/components/atoms/text-field";
 
 const meta = {
   title: "Atoms/TextField",

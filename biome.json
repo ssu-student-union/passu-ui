@@ -86,7 +86,7 @@
       }
     },
     {
-      "includes": ["src/**/*.stories.tsx"],
+      "includes": ["src/stories/**/*.stories.tsx"],
       "linter": {
         "rules": {
           "style": {

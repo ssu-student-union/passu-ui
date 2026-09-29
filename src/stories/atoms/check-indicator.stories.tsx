@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { CheckIndicator } from "./check-indicator";
+import { CheckIndicator } from "@/components/atoms/check-indicator";
 
 const meta = {
   title: "Atoms/CheckIndicator",

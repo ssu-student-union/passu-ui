@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { VerificationItem } from "./verification-item";
+import { VerificationItem } from "@/components/molecules/verification-item";
 
 const meta = {
   title: "Molecules/VerificationItem",
