@@ -37,7 +37,7 @@
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "changeset publish",
-    "prepublishOnly": "pnpm run build"
+    "prepack": "pnpm run build"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.3.3",
