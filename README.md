@@ -98,23 +98,23 @@ pnpm run build
 
 ## 📦 다른 앱에서 사용하기
 
-npm 레지스트리에 [`@passu/ui`](https://www.npmjs.com/package/@passu/ui)로 배포되어 있습니다.
+npm 레지스트리에 [`@ssu-it-support/passu-ui`](https://www.npmjs.com/package/@ssu-it-support/passu-ui)로 배포되어 있습니다.
 
 ```bash
-pnpm add @passu/ui
+pnpm add @ssu-it-support/passu-ui
 ```
 
 ```tsx
-import { Button, cn } from "@passu/ui";
+import { Button, cn } from "@ssu-it-support/passu-ui";
 ```
 
 ```css
 /* admin, user의 index.css */
 @import "tailwindcss";
-@import "@passu/ui/theme.css";
+@import "@ssu-it-support/passu-ui/theme.css";
 
 /* Tailwind는 node_modules를 스캔하지 않으므로 컴포넌트 클래스를 수집하도록 경로를 지정합니다. */
-@source "../node_modules/@passu/ui/dist";
+@source "../node_modules/@ssu-it-support/passu-ui/dist";
 ```
 
 ### 로컬에서 앱과 함께 개발하기
@@ -123,7 +123,7 @@ import { Button, cn } from "@passu/ui";
 
 ```bash
 pnpm link ../ui    # 링크
-pnpm unlink @passu/ui && pnpm install    # 해제
+pnpm unlink @ssu-it-support/passu-ui && pnpm install    # 해제
 ```
 
 ### 배포
