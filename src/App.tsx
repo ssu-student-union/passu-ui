@@ -10,6 +10,9 @@ import {
   Header,
   Icon,
   Radio,
+  Spinner,
+  StatusIcon,
+  StatusMessage,
   TextButton,
   TextField,
   TopBar,
@@ -18,6 +21,7 @@ import {
 
 export function App() {
   const [name, setName] = useState("입력된 값");
+  const [loading, setLoading] = useState(true);
 
   return (
     <div style={{ padding: 24, display: "flex", flexDirection: "column", gap: 24 }}>
@@ -339,6 +343,37 @@ export function App() {
             visibilityToggle
           />
         </div>
+      </div>
+
+      <div
+        style={{ display: "flex", gap: 24, alignItems: "center", background: "#fff", padding: 24 }}
+      >
+        <span style={{ display: "inline-flex", width: 40, height: 40 }}>
+          <Spinner loading={loading} />
+        </span>
+        <Button
+          size="sm"
+          theme="neutral"
+          variant="line"
+          onClick={() => setLoading(v => !v)}
+        >
+          {loading ? "로딩 종료" : "로딩 시작"}
+        </Button>
+        <StatusIcon status="info" />
+        <StatusIcon status="success" />
+        <StatusIcon status="danger" />
+      </div>
+
+      <div style={{ display: "flex", gap: 48, background: "#fcfcfc", padding: 24 }}>
+        <StatusMessage
+          status="info"
+          title="오늘 행사가 마감되었어요"
+          description="운영 시간이 지나 상품 수령이 종료되었어요."
+        />
+        <StatusMessage
+          status="loading"
+          title="확인 중이에요"
+        />
       </div>
     </div>
   );
