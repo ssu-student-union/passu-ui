@@ -10,7 +10,10 @@ interface CheckboxProps extends Omit<ComponentProps<"input">, "type" | "size"> {
 function Checkbox({ className, label, ...props }: CheckboxProps) {
   return (
     <label
-      className={cn("inline-flex items-center gap-1 text-body5-14 text-fg-default", className)}
+      className={cn(
+        "inline-flex items-center gap-1 align-middle text-body5-14 text-fg-default",
+        className,
+      )}
     >
       <span className="group relative inline-flex size-6 shrink-0 items-center justify-center p-0.5">
         <input
