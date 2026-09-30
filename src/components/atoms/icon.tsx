@@ -10,12 +10,12 @@ const sizeClassName = {
   xl: "size-10",
 } as const;
 
-export interface IconProps extends ComponentProps<"span"> {
+interface IconProps extends ComponentProps<"span"> {
   size?: keyof typeof sizeClassName;
   children?: ReactNode;
 }
 
-export function Icon({ className, size = "md", children, ...props }: IconProps) {
+function Icon({ className, size = "md", children, ...props }: IconProps) {
   return (
     <span
       className={cn(
@@ -29,3 +29,6 @@ export function Icon({ className, size = "md", children, ...props }: IconProps) 
     </span>
   );
 }
+
+export type { IconProps };
+export { Icon };

@@ -6,7 +6,6 @@ import { TopBar } from "@/components/atoms/top-bar";
 const meta = {
   title: "Atoms/TopBar",
   component: TopBar,
-  parameters: { layout: "fullscreen" },
   args: { title: "Title", onBack: fn() },
   decorators: [
     Story => (

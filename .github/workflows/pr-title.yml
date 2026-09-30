@@ -1,4 +1,4 @@
-name: PR 제목 검사
+name: PR Title Lint
 
 on:
   pull_request_target:
@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # PR 제목이 CONVENTION.md의 커밋 컨벤션(Conventional Commits 타입 프리픽스 + 한글 설명)을 따르는지 검사합니다.
-      - name: PR 제목 형식 검사
+      - name: Lint PR title
         uses: actions/github-script@v7
         with:
           script: |

@@ -3,7 +3,7 @@ import { Spinner } from "@/components/atoms/spinner";
 import { StatusIcon, type StatusIconProps } from "@/components/atoms/status-icon";
 import { cn } from "@/utils/cn";
 
-export interface StatusMessageProps extends Omit<ComponentProps<"div">, "title"> {
+interface StatusMessageProps extends Omit<ComponentProps<"div">, "title"> {
   status: NonNullable<StatusIconProps["status"]> | "loading";
   title: ReactNode;
   description?: ReactNode;
@@ -11,7 +11,7 @@ export interface StatusMessageProps extends Omit<ComponentProps<"div">, "title">
   children?: ReactNode;
 }
 
-export function StatusMessage({
+function StatusMessage({
   className,
   status,
   title,
@@ -35,3 +35,6 @@ export function StatusMessage({
     </div>
   );
 }
+
+export type { StatusMessageProps };
+export { StatusMessage };

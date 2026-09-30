@@ -1,9 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Divider } from "@/components/atoms/divider";
-import { InfoCard } from "@/components/molecules/info-card";
 import { StatusMessage } from "@/components/molecules/status-message";
-import { SummaryItem } from "@/components/molecules/summary-item";
-import { VerificationItem } from "@/components/molecules/verification-item";
 
 const meta = {
   title: "Molecules/StatusMessage",
@@ -40,62 +36,4 @@ export const Danger: Story = {
 
 export const Loading: Story = {
   args: { status: "loading", title: "확인 중이에요", description: undefined },
-};
-
-/** 참여 조건 확인 화면 */
-export const WithVerification: Story = {
-  args: {
-    status: "loading",
-    title: "참여 조건을 확인하고 있어요",
-    description: undefined,
-    children: (
-      <InfoCard
-        size="sm"
-        className="w-[310px]"
-      >
-        <VerificationItem
-          label="소속 · 학적"
-          status="complete"
-        />
-        <Divider size="sm" />
-        <VerificationItem
-          label="학생회비 납부"
-          status="checking"
-        />
-      </InfoCard>
-    ),
-  },
-};
-
-export const WithSummary: Story = {
-  args: {
-    status: "success",
-    title: "인증이 완료되었어요",
-    description: undefined,
-    children: (
-      <InfoCard>
-        <SummaryItem
-          label="이름"
-          value="정지원"
-        />
-        <SummaryItem
-          label="학번"
-          value="20261729"
-        />
-        <SummaryItem
-          label="학과"
-          value="AI소프트웨어학부"
-        />
-        <Divider size="sm" />
-        <SummaryItem
-          label="상품"
-          value="햄치즈 토스트 + 콜라"
-        />
-        <SummaryItem
-          label="수량"
-          value={1}
-        />
-      </InfoCard>
-    ),
-  },
 };

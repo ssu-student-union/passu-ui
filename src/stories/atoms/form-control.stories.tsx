@@ -1,10 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { TextField } from "@/components/atoms/text-field";
+import { FormControl } from "@/components/atoms/form-control";
 
 const meta = {
-  title: "Atoms/TextField",
-  component: TextField,
+  title: "Atoms/FormControl",
+  component: FormControl,
+  decorators: [
+    Story => (
+      <div className="w-[360px]">
+        <Story />
+      </div>
+    ),
+  ],
   args: {
     label: "레이블",
     required: true,
@@ -14,7 +21,7 @@ const meta = {
   argTypes: {
     status: { control: "inline-radio", options: ["default", "error", "success"] },
   },
-} satisfies Meta<typeof TextField>;
+} satisfies Meta<typeof FormControl>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -31,7 +38,7 @@ export const Clearable: Story = {
   render: function Render(args) {
     const [value, setValue] = useState("입력된 값");
     return (
-      <TextField
+      <FormControl
         {...args}
         value={value}
         onChange={event => setValue(event.target.value)}
