@@ -7,7 +7,6 @@ const meta = {
   title: "Atoms/Header",
   component: Header,
   parameters: {
-    layout: "padded",
     docs: {
       description: {
         component: [
