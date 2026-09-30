@@ -17,6 +17,11 @@ export const Checked: Story = {
   args: { defaultChecked: true },
 };
 
+/** 라벨을 넘기면 오른쪽에 텍스트가 붙고, 라벨을 눌러도 선택돼요. */
+export const WithLabel: Story = {
+  args: { label: "라벨", defaultChecked: true },
+};
+
 export const Group: Story = {
   render: args => (
     <div className="flex gap-3">
@@ -26,7 +31,7 @@ export const Group: Story = {
           {...args}
           name="group"
           value={value}
-          aria-label={value}
+          label={value}
           defaultChecked={value === "A"}
         />
       ))}
