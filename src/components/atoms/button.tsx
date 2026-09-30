@@ -3,8 +3,8 @@ import { tv, type VariantProps } from "tailwind-variants";
 import { cn } from "@/utils/cn";
 import type { IconComponent } from "@/utils/icon";
 
-export const buttonVariants = tv({
-  base: "inline-flex shrink-0 items-center justify-center disabled:pointer-events-none disabled:bg-fill-disabled disabled:text-fg-disabled",
+const buttonVariants = tv({
+  base: "inline-flex shrink-0 items-center justify-center active:bg-[image:linear-gradient(var(--color-black-alpha-5),var(--color-black-alpha-5))] disabled:pointer-events-none disabled:bg-fill-disabled disabled:text-fg-disabled",
   variants: {
     size: {
       lg: "min-w-[3.5rem] gap-1 rounded-12 p-4 text-body1-16",
@@ -20,10 +20,18 @@ export const buttonVariants = tv({
         "[--btn-bg-hover:var(--fill-danger-hovered)] [--btn-bg:var(--fill-danger)] [--btn-fg:var(--fg-inverse-default)] [--btn-subtle-bg-hover:var(--fill-danger-subtle-hovered)] [--btn-subtle-bg:var(--fill-danger-subtle)] [--btn-subtle-fg:var(--fg-danger-default)]",
     },
     variant: {
-      primary: "bg-[var(--btn-bg)] text-[var(--btn-fg)] hover:bg-[var(--btn-bg-hover)]",
+      primary:
+        "bg-[var(--btn-bg)] text-[var(--btn-fg)] hover:bg-[var(--btn-bg-hover)] active:bg-[var(--btn-bg-hover)]",
       secondary:
-        "bg-[var(--btn-subtle-bg)] text-[var(--btn-subtle-fg)] hover:bg-[var(--btn-subtle-bg-hover)]",
-      line: "border border-border-default bg-[var(--btn-subtle-bg)] text-[var(--btn-subtle-fg)] hover:bg-[var(--btn-subtle-bg-hover)]",
+        "bg-[var(--btn-subtle-bg)] text-[var(--btn-subtle-fg)] hover:bg-[var(--btn-subtle-bg-hover)] active:bg-[var(--btn-subtle-bg-hover)]",
+      line: "border border-border-default bg-[var(--btn-subtle-bg)] text-[var(--btn-subtle-fg)] hover:bg-[var(--btn-subtle-bg-hover)] active:bg-[var(--btn-subtle-bg-hover)]",
+      ghost:
+        "bg-transparent text-[var(--btn-subtle-fg)] active:bg-none disabled:bg-transparent disabled:text-[var(--btn-subtle-fg)] disabled:opacity-[0.32]",
+    },
+    layout: {
+      fill: "w-full",
+      single: "w-[13.75rem]",
+      group: "w-[12.5rem]",
     },
   },
   defaultVariants: {
@@ -45,16 +53,17 @@ const iconSizeClassName = {
   sm: "size-4",
 } as const;
 
-export interface ButtonProps extends ComponentProps<"button">, VariantProps<typeof buttonVariants> {
+interface ButtonProps extends ComponentProps<"button">, VariantProps<typeof buttonVariants> {
   leadingIcon?: IconComponent;
   trailingIcon?: IconComponent;
 }
 
-export function Button({
+function Button({
   className,
   size = "lg",
   theme,
   variant,
+  layout,
   leadingIcon: LeadingIcon,
   trailingIcon: TrailingIcon,
   children,
@@ -63,7 +72,7 @@ export function Button({
   return (
     <button
       type="button"
-      className={cn(buttonVariants({ size, theme, variant }), className)}
+      className={cn(buttonVariants({ size, theme, variant, layout }), className)}
       {...props}
     >
       {LeadingIcon && <LeadingIcon className={iconSizeClassName[size]} />}
@@ -78,3 +87,6 @@ export function Button({
     </button>
   );
 }
+
+export type { ButtonProps };
+export { Button, buttonVariants };

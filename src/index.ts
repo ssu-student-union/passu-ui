@@ -11,7 +11,6 @@ export * from "./components/atoms/icon";
 export * from "./components/atoms/radio";
 export * from "./components/atoms/spinner";
 export * from "./components/atoms/status-icon";
-export * from "./components/atoms/text-button";
 export * from "./components/atoms/text-field";
 export * from "./components/atoms/top-bar";
 export * from "./components/molecules/info-card";
