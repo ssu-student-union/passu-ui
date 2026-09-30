@@ -144,11 +144,15 @@ function FormControl({
   status = "default",
   invalid,
   visibilityToggle = false,
+  "aria-describedby": describedBy,
   ...props
 }: FormControlProps) {
   const generatedId = useId();
   const inputId = id ?? generatedId;
   const helperTextId = `${inputId}-helper`;
+  const describedByIds = [describedBy, helperText ? helperTextId : undefined]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <div className={cn("flex w-full min-w-[15rem] flex-col items-start gap-1", wrapperClassName)}>
@@ -164,7 +168,7 @@ function FormControl({
         id={inputId}
         invalid={invalid ?? status === "error"}
         visibilityToggle={visibilityToggle}
-        aria-describedby={helperText ? helperTextId : undefined}
+        aria-describedby={describedByIds || undefined}
         {...props}
       />
       {helperText && (
