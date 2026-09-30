@@ -12,8 +12,7 @@ pre-commit:
 commit-msg:
   commands:
     commit-message-format:
-      run: |
-        head -1 "{1}" | grep -qE '^[a-z]+(\([^)]*\))?!?: .+' || {
-          echo "커밋 메시지는 'type: 설명' 형식이어야 합니다 (예: feat: 로그인 기능 추가)"
-          exit 1
-        }
+      # Windows에서는 스크립트에 큰따옴표·한글이 있으면 sh로 넘어가며 잘리므로 한 줄로 두고, 안내 문구는 fail_text로 뺀다
+      run: >-
+        head -1 '{1}' | grep -qE '^[a-z]+(\([^)]*\))?!?: .+'
+      fail_text: "커밋 메시지는 'type: 설명' 형식이어야 합니다 (예: feat: 로그인 기능 추가)"
