@@ -1,9 +1,10 @@
 import type { ComponentProps } from "react";
-import { tv, type VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
 import CloseIcon from "@/assets/icons/close.svg?react";
 import DropdownIcon from "@/assets/icons/dropdown.svg?react";
 import { cn } from "@/utils/cn";
 import type { IconComponent } from "@/utils/icon";
+import { tv } from "@/utils/tv";
 
 const chipVariants = tv({
   base: "inline-flex shrink-0 items-center justify-center gap-1 rounded-8 p-2 text-body5-14",

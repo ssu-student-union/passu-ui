@@ -1,6 +1,7 @@
 import { Children, type ComponentProps, Fragment, type ReactNode } from "react";
-import { tv, type VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
 import { cn } from "@/utils/cn";
+import { tv } from "@/utils/tv";
 
 const headerVariants = tv({
   base: "flex w-full items-center gap-3 px-0.5",

@@ -1,8 +1,9 @@
 import type { ComponentProps } from "react";
-import { tv, type VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
 import CheckBoldIcon from "@/assets/icons/check-bold.svg?react";
 import PriorityHighIcon from "@/assets/icons/priority-high.svg?react";
 import { cn } from "@/utils/cn";
+import { tv } from "@/utils/tv";
 
 const statusIconVariants = tv({
   base: "inline-flex shrink-0 items-center justify-center rounded-full p-3",
