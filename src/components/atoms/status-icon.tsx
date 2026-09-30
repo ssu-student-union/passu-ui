@@ -31,8 +31,7 @@ function StatusIcon({ className, status = "info", ...props }: StatusIconProps) {
       {status === "success" ? (
         <CheckBoldIcon className="size-10" />
       ) : (
-        // 느낌표를 상하 반전
-        <PriorityHighIcon className={cn("size-10", status === "info" && "-scale-y-100")} />
+        <PriorityHighIcon className="size-10" />
       )}
     </span>
   );
