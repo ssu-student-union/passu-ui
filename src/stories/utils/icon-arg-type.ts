@@ -3,7 +3,7 @@ import PlaceholderIcon from "@/assets/icons/placeholder.svg?react";
 import type { IconComponent } from "@/utils/icon";
 
 const icons: Record<string, IconComponent | undefined> = {
-  없음: undefined,
+  None: undefined,
   Placeholder: PlaceholderIcon,
   Check: CheckIcon,
 };
