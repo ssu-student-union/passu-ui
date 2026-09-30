@@ -1,7 +1,8 @@
 import type { ComponentProps } from "react";
-import { tv, type VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
 import { cn } from "@/utils/cn";
 import type { IconComponent } from "@/utils/icon";
+import { tv } from "@/utils/tv";
 
 const badgeVariants = tv({
   base: "inline-flex shrink-0 items-center justify-center rounded-4",

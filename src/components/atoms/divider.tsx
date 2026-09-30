@@ -1,6 +1,7 @@
 import type { ComponentProps } from "react";
-import { tv, type VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
 import { cn } from "@/utils/cn";
+import { tv } from "@/utils/tv";
 
 const dividerVariants = tv({
   base: "m-0 w-full shrink-0 border-0 bg-border-default",

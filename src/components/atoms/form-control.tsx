@@ -1,10 +1,11 @@
 import { type ComponentProps, type ReactNode, useId, useState } from "react";
-import { tv, type VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
 import AsteriskIcon from "@/assets/icons/asterisk.svg?react";
 import CancelIcon from "@/assets/icons/cancel.svg?react";
 import VisibilityOffIcon from "@/assets/icons/visibility-off.svg?react";
 import VisibilityOnIcon from "@/assets/icons/visibility-on.svg?react";
 import { cn } from "@/utils/cn";
+import { tv } from "@/utils/tv";
 
 const formFieldVariants = tv({
   base: "flex h-[2.75rem] w-full min-w-[15rem] items-center gap-2 rounded-8 px-4 py-2",
