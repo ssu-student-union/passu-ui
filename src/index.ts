@@ -2,7 +2,6 @@ import "./index.css";
 
 export * from "./components/atoms/badge";
 export * from "./components/atoms/button";
-export * from "./components/atoms/check-indicator";
 export * from "./components/atoms/checkbox";
 export * from "./components/atoms/chip";
 export * from "./components/atoms/divider";
@@ -13,9 +12,6 @@ export * from "./components/atoms/radio";
 export * from "./components/atoms/spinner";
 export * from "./components/atoms/status-icon";
 export * from "./components/atoms/top-bar";
-export * from "./components/molecules/info-card";
 export * from "./components/molecules/status-message";
-export * from "./components/molecules/summary-item";
 export * from "./components/molecules/toast";
-export * from "./components/molecules/verification-item";
 export { cn } from "./utils/cn";
