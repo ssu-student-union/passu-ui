@@ -2,9 +2,9 @@ import type { ComponentProps } from "react";
 import CheckSmallIcon from "@/assets/icons/check-small.svg?react";
 import { cn } from "@/utils/cn";
 
-export interface CheckboxProps extends Omit<ComponentProps<"input">, "type" | "size"> {}
+interface CheckboxProps extends Omit<ComponentProps<"input">, "type" | "size"> {}
 
-export function Checkbox({ className, ...props }: CheckboxProps) {
+function Checkbox({ className, ...props }: CheckboxProps) {
   return (
     <span
       className={cn(
@@ -23,3 +23,6 @@ export function Checkbox({ className, ...props }: CheckboxProps) {
     </span>
   );
 }
+
+export type { CheckboxProps };
+export { Checkbox };

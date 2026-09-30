@@ -2,13 +2,13 @@ import type { ComponentProps, ReactNode } from "react";
 import ArrowBackIcon from "@/assets/icons/arrow-back.svg?react";
 import { cn } from "@/utils/cn";
 
-export interface TopBarProps extends Omit<ComponentProps<"div">, "title"> {
+interface TopBarProps extends Omit<ComponentProps<"div">, "title"> {
   title?: ReactNode;
   onBack?: () => void;
   rightSlot?: ReactNode;
 }
 
-export function TopBar({ className, title, onBack, rightSlot, ...props }: TopBarProps) {
+function TopBar({ className, title, onBack, rightSlot, ...props }: TopBarProps) {
   return (
     <div
       className={cn("relative h-12 w-full", className)}
@@ -37,3 +37,6 @@ export function TopBar({ className, title, onBack, rightSlot, ...props }: TopBar
     </div>
   );
 }
+
+export type { TopBarProps };
+export { TopBar };

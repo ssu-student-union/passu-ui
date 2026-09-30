@@ -3,7 +3,7 @@ import { tv, type VariantProps } from "tailwind-variants";
 import { cn } from "@/utils/cn";
 import type { IconComponent } from "@/utils/icon";
 
-export const badgeVariants = tv({
+const badgeVariants = tv({
   base: "inline-flex shrink-0 items-center justify-center rounded-4",
   variants: {
     size: {
@@ -22,11 +22,11 @@ export const badgeVariants = tv({
   },
 });
 
-export interface BadgeProps extends ComponentProps<"span">, VariantProps<typeof badgeVariants> {
+interface BadgeProps extends ComponentProps<"span">, VariantProps<typeof badgeVariants> {
   leadingIcon?: IconComponent;
 }
 
-export function Badge({
+function Badge({
   className,
   size,
   theme,
@@ -44,3 +44,6 @@ export function Badge({
     </span>
   );
 }
+
+export type { BadgeProps };
+export { Badge, badgeVariants };

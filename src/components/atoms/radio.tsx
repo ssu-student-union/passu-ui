@@ -1,9 +1,9 @@
 import type { ComponentProps } from "react";
 import { cn } from "@/utils/cn";
 
-export interface RadioProps extends Omit<ComponentProps<"input">, "type" | "size"> {}
+interface RadioProps extends Omit<ComponentProps<"input">, "type" | "size"> {}
 
-export function Radio({ className, ...props }: RadioProps) {
+function Radio({ className, ...props }: RadioProps) {
   return (
     <span
       className={cn(
@@ -22,3 +22,6 @@ export function Radio({ className, ...props }: RadioProps) {
     </span>
   );
 }
+
+export type { RadioProps };
+export { Radio };

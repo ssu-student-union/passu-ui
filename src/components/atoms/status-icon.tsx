@@ -4,7 +4,7 @@ import CheckBoldIcon from "@/assets/icons/check-bold.svg?react";
 import PriorityHighIcon from "@/assets/icons/priority-high.svg?react";
 import { cn } from "@/utils/cn";
 
-export const statusIconVariants = tv({
+const statusIconVariants = tv({
   base: "inline-flex shrink-0 items-center justify-center rounded-full p-3",
   variants: {
     status: {
@@ -18,11 +18,9 @@ export const statusIconVariants = tv({
   },
 });
 
-export interface StatusIconProps
-  extends ComponentProps<"span">,
-    VariantProps<typeof statusIconVariants> {}
+interface StatusIconProps extends ComponentProps<"span">, VariantProps<typeof statusIconVariants> {}
 
-export function StatusIcon({ className, status = "info", ...props }: StatusIconProps) {
+function StatusIcon({ className, status = "info", ...props }: StatusIconProps) {
   return (
     <span
       aria-hidden
@@ -38,3 +36,6 @@ export function StatusIcon({ className, status = "info", ...props }: StatusIconP
     </span>
   );
 }
+
+export type { StatusIconProps };
+export { StatusIcon, statusIconVariants };

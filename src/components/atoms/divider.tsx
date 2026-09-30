@@ -2,7 +2,7 @@ import type { ComponentProps } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 import { cn } from "@/utils/cn";
 
-export const dividerVariants = tv({
+const dividerVariants = tv({
   base: "m-0 w-full shrink-0 border-0 bg-border-default",
   variants: {
     size: {
@@ -16,9 +16,9 @@ export const dividerVariants = tv({
   },
 });
 
-export interface DividerProps extends ComponentProps<"hr">, VariantProps<typeof dividerVariants> {}
+interface DividerProps extends ComponentProps<"hr">, VariantProps<typeof dividerVariants> {}
 
-export function Divider({ className, size, ...props }: DividerProps) {
+function Divider({ className, size, ...props }: DividerProps) {
   return (
     <hr
       className={cn(dividerVariants({ size }), className)}
@@ -26,3 +26,6 @@ export function Divider({ className, size, ...props }: DividerProps) {
     />
   );
 }
+
+export type { DividerProps };
+export { Divider, dividerVariants };

@@ -161,6 +161,7 @@ pnpm unlink @passu/ui && pnpm install    # 해제
 ## 📝 컨벤션
 
 - `src/` 하위에서는 default export를 금지하고 named export만 사용합니다
+- `export`는 선언부에 붙이지 않고 파일 맨 아래에 모아서 씁니다. 타입(`export type { ... }`)을 먼저, 값(`export { ... }`)을 다음에 두고 이름은 알파벳 순으로 정렬합니다 (`toast.tsx` 참고)
 - 순수 함수(`utils/`)는 React/DOM에 의존하지 않습니다
 - 커밋 메시지는 Conventional Commits 타입 프리픽스(`feat:`, `fix:`, `chore:` 등) + 한글 설명으로 작성하며, lefthook의 commit-msg 훅이 커밋 시 자동으로 검사합니다
 

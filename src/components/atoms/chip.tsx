@@ -5,7 +5,7 @@ import DropdownIcon from "@/assets/icons/dropdown.svg?react";
 import { cn } from "@/utils/cn";
 import type { IconComponent } from "@/utils/icon";
 
-export const chipVariants = tv({
+const chipVariants = tv({
   base: "inline-flex shrink-0 items-center justify-center gap-1 rounded-8 p-2 text-body5-14",
   variants: {
     theme: {
@@ -27,12 +27,12 @@ export const chipVariants = tv({
   },
 });
 
-export interface ChipProps extends ComponentProps<"div">, VariantProps<typeof chipVariants> {
+interface ChipProps extends ComponentProps<"div">, VariantProps<typeof chipVariants> {
   leadingIcon?: IconComponent;
   onRemove?: () => void;
 }
 
-export function Chip({
+function Chip({
   className,
   theme,
   variant = "filter",
@@ -64,3 +64,6 @@ export function Chip({
     </div>
   );
 }
+
+export type { ChipProps };
+export { Chip, chipVariants };

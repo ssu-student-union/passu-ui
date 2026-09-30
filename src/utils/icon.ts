@@ -1,3 +1,5 @@
 import type { ComponentProps, ComponentType } from "react";
 
-export type IconComponent = ComponentType<ComponentProps<"svg">>;
+type IconComponent = ComponentType<ComponentProps<"svg">>;
+
+export type { IconComponent };

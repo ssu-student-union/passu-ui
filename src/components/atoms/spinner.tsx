@@ -16,14 +16,14 @@ const DOT_STAGGER_MS = 60;
 // 머리가 꼬리 끝을 따라잡지 않도록 꼬리부터 출발시키고, 겹치지 않는 최대 간격으로 설정
 const ORBIT_STAGGER_MS = 24;
 
-export interface SpinnerProps extends ComponentProps<"span"> {
+interface SpinnerProps extends ComponentProps<"span"> {
   /** false가 되면 점이 순서대로 사라진 뒤 언마운트된다. */
   loading?: boolean;
   onExited?: () => void;
   label?: string;
 }
 
-export function Spinner({
+function Spinner({
   className,
   loading = true,
   onExited,
@@ -89,3 +89,6 @@ export function Spinner({
     </span>
   );
 }
+
+export type { SpinnerProps };
+export { Spinner };
