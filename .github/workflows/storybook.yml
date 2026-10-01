@@ -14,13 +14,13 @@ permissions:
 
 jobs:
   deploy:
+    # 수동 실행(workflow_dispatch)을 다른 브랜치에서 돌려 시크릿을 쓰는 일을 막습니다.
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    env:
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
+      # 시크릿은 이 단계와 마지막 배포 단계에만 넘깁니다. (의존성 설치·빌드 단계에는 노출하지 않습니다)
       # 시크릿이 등록되기 전에는 빌드와 배포를 건너뛰어 main이 빨갛게 되지 않도록 합니다.
       - name: Check Cloudflare credentials
         id: cloudflare
@@ -30,6 +30,9 @@ jobs:
           else
             echo "::notice::CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID 시크릿이 없어 Storybook 배포를 건너뜁니다."
           fi
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
         if: steps.cloudflare.outputs.enabled == 'true'
@@ -57,4 +60,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: "4.144.0"
           command: deploy
