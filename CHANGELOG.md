@@ -1,5 +1,11 @@
 # @passu/ui
 
+## 1.2.0
+
+### Minor Changes
+
+- 5c3c538: Logo 컴포넌트 추가 (PASSU v3 로고, 기존 미사용 `passu-logo.svg`는 v3 로고로 교체)
+
 ## 1.1.0
 
 ### Minor Changes
