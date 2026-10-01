@@ -5,7 +5,7 @@ import { tv } from "@/utils/tv";
 
 const tableCellVariants = tv({
   // Figma는 p-4에 높이 56px 고정이지만, lg Badge(27.6px)를 넣으면 넘치므로 세로 패딩을 줄이고 가운데 정렬로 맞춘다
-  base: "h-[3.5rem] min-w-[5rem] px-4 py-3 align-middle text-fg-default",
+  base: "h-[3.5rem] min-w-[5rem] break-keep px-4 py-3 align-middle text-fg-default",
   variants: {
     type: {
       title: "bg-fill-neutral text-body1-16",
