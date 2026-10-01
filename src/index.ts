@@ -8,6 +8,7 @@ export * from "./components/atoms/divider";
 export * from "./components/atoms/form-control";
 export * from "./components/atoms/header";
 export * from "./components/atoms/icon";
+export * from "./components/atoms/popover";
 export * from "./components/atoms/radio";
 export * from "./components/atoms/spinner";
 export * from "./components/atoms/status-icon";
