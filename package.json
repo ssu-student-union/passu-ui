@@ -37,8 +37,7 @@
     "prepare": "lefthook install",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "prepack": "pnpm run build",
-    "release": "changeset tag"
+    "prepack": "pnpm run build"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.23",

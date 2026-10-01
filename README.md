@@ -153,7 +153,7 @@ pnpm unlink @passu/ui && pnpm install    # 해제
 
 1. 사용자에게 영향이 있는 변경이면 PR에 `pnpm changeset`으로 만든 changeset 파일을 함께 커밋합니다.
 2. `main`에 머지되면 GitHub Actions가 "chore: 패키지 버전 업데이트" PR을 자동으로 엽니다.
-3. 그 PR을 머지하면 `v{버전}` 태그가 만들어집니다.
+3. 그 PR을 머지하면 `v{버전}` 태그와 GitHub Release가 만들어집니다.
 4. 앱에서 의존성의 `#v0.1.0`을 새 태그로 올리고 `pnpm install`합니다.
 
 ---
