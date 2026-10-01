@@ -22,15 +22,32 @@ jobs:
       - name: pnpm install
         run: pnpm install --frozen-lockfile
 
-      # 미반영 changeset이 있으면 "버전 업데이트" PR을 열고,
-      # 그 PR이 머지되어 새 버전이 main에 올라오면 v{버전} 태그를 만들어 push합니다.
-      # 앱은 이 태그를 Git 의존성으로 참조합니다. (npm에는 배포하지 않습니다)
-      - name: Create a release PR and tag
+      # 미반영 changeset이 있으면 "버전 업데이트" PR을 엽니다.
+      - name: Create a release PR
+        id: changesets
         uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d # v1.9.0
         with:
           version: pnpm run version-packages
-          publish: pnpm run release
           title: "chore: 패키지 버전 업데이트"
           commit: "chore: 패키지 버전 업데이트"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # 버전 업데이트 PR이 머지되어 새 버전이 main에 올라오면 v{버전} 태그와 GitHub Release를 만듭니다.
+      # 앱은 이 태그를 Git 의존성으로 참조합니다. (npm에는 배포하지 않습니다)
+      # changesets/action의 publish는 CLI 출력의 "New tag:"로 릴리스를 판단하는데,
+      # 현재 CLI는 "Created git tags:"로 출력해 태그가 push되지 않아서 직접 만듭니다.
+      # 태그가 이미 있으면 아무것도 하지 않으므로 일반 머지에서도 안전합니다.
+      - name: Tag and release
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        run: |
+          tag="v$(node -p "require('./package.json').version")"
+          if git ls-remote --exit-code --tags origin "refs/tags/$tag" > /dev/null; then
+            echo "$tag 태그가 이미 있습니다."
+            exit 0
+          fi
+          git tag "$tag"
+          git push origin "$tag"
+          gh release create "$tag" --title "${tag#v}" --generate-notes --verify-tag
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
