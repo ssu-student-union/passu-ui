@@ -4,6 +4,7 @@ export * from "./components/atoms/badge";
 export * from "./components/atoms/button";
 export * from "./components/atoms/checkbox";
 export * from "./components/atoms/chip";
+export * from "./components/atoms/dialog";
 export * from "./components/atoms/divider";
 export * from "./components/atoms/form-control";
 export * from "./components/atoms/header";
