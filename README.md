@@ -156,6 +156,22 @@ pnpm unlink @passu/ui && pnpm install    # 해제
 3. 그 PR을 머지하면 `v{버전}` 태그와 GitHub Release가 만들어집니다.
 4. 앱에서 의존성의 `#v0.1.0`을 새 태그로 올리고 `pnpm install`합니다.
 
+### Storybook 배포
+
+Cloudflare Workers Builds가 이 레포를 직접 빌드해 Storybook을 Workers 정적 에셋(`wrangler.jsonc`)으로 배포합니다. `main`에 머지되면 운영 배포가 되고, 다른 브랜치와 PR은 미리보기 빌드로 올라갑니다.
+
+Cloudflare 대시보드의 Workers & Pages → `passu-ui` → Settings → Build에서 다음과 같이 설정합니다.
+
+| 설정                  | 값                                                                       |
+| --------------------- | ------------------------------------------------------------------------ |
+| Build command         | `pnpm run build-storybook`                                               |
+| Deploy command        | `npx wrangler deploy` (기본값)                                            |
+| Preview command       | 기본값 (`npx wrangler preview`)                                           |
+| Build variables       | `PNPM_VERSION` = `11` (Cloudflare 기본 pnpm은 10.11.1이고 `mise.toml`은 읽지 않습니다) |
+
+- `wrangler.jsonc`의 `name`은 대시보드의 Worker 이름과 같아야 합니다.
+- 배포 주소는 기본적으로 누구나 열 수 있으므로, 팀원만 보게 하려면 Cloudflare Access로 접근을 제한합니다.
+
 ---
 
 ## 📝 컨벤션
