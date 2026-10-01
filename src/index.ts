@@ -15,5 +15,6 @@ export * from "./components/atoms/status-icon";
 export * from "./components/atoms/top-bar";
 export * from "./components/molecules/calendar";
 export * from "./components/molecules/status-message";
+export * from "./components/molecules/table";
 export * from "./components/molecules/toast";
 export { cn } from "./utils/cn";
