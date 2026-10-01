@@ -1,5 +1,11 @@
 # @passu/ui
 
+## 1.1.0
+
+### Minor Changes
+
+- 15a6741: Popover, Calendar, Table, CascadingSelect, Dialog 컴포넌트 추가
+
 ## 1.0.0
 
 ### Major Changes
