@@ -1,0 +1,8 @@
+{
+  // Storybook 정적 빌드를 Cloudflare Workers의 정적 에셋으로 배포한다 (Worker 스크립트 없음)
+  "name": "passu-ui-storybook",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./storybook-static"
+  }
+}

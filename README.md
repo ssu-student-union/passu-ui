@@ -156,6 +156,13 @@ pnpm unlink @passu/ui && pnpm install    # 해제
 3. 그 PR을 머지하면 `v{버전}` 태그와 GitHub Release가 만들어집니다.
 4. 앱에서 의존성의 `#v0.1.0`을 새 태그로 올리고 `pnpm install`합니다.
 
+### Storybook 배포
+
+`main`에 머지되면 GitHub Actions(`storybook.yml`)가 Storybook을 빌드해 Cloudflare Workers의 정적 에셋(`wrangler.jsonc`)으로 배포합니다.
+
+- 레포 시크릿 `CLOUDFLARE_API_TOKEN`(Edit Cloudflare Workers 템플릿)과 `CLOUDFLARE_ACCOUNT_ID`가 없으면 배포를 건너뜁니다.
+- 배포 주소는 기본적으로 누구나 열 수 있으므로, 팀원만 보게 하려면 Cloudflare Access로 접근을 제한합니다.
+
 ---
 
 ## 📝 컨벤션
