@@ -1,5 +1,11 @@
 # @passu/ui
 
+## 1.5.1
+
+### Patch Changes
+
+- 3c91172: ghost 버튼에 hover·pressed 상태 추가
+
 ## 1.5.0
 
 ### Minor Changes
