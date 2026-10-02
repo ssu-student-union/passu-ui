@@ -98,20 +98,30 @@ pnpm run build
 
 ## 📦 다른 앱에서 사용하기
 
-[npm](https://www.npmjs.com/package/@ssu-it-support/passu-ui)에 `@ssu-it-support/passu-ui`로 배포되어 있습니다.
+GitHub Packages에 `@ssu-student-union/passu-ui`로 배포됩니다. 패키지는 레포 오른쪽 사이드바의 **Packages**에서 볼 수 있습니다.
+
+GitHub Packages는 설치할 때 인증이 필요합니다. `read:packages` 권한이 있는 토큰을 준비하고(로컬은 `gh auth refresh -s read:packages` 후 `gh auth token`), 앱 레포의 `.npmrc`에 등록합니다.
+
+```ini
+# admin, user의 .npmrc
+@ssu-student-union:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${NPM_TOKEN}
+```
+
+CI·배포 환경에서는 `NPM_TOKEN` 환경 변수에 같은 토큰을 넣습니다. 이 레포는 비공개이므로 패키지 설정(Package settings → Manage Actions access)에서 앱 레포의 접근도 허용해야 합니다.
 
 ```bash
-pnpm add @ssu-it-support/passu-ui
+pnpm add @ssu-student-union/passu-ui
 ```
 
 ```tsx
-import { Button, cn } from "@ssu-it-support/passu-ui";
+import { Button, cn } from "@ssu-student-union/passu-ui";
 ```
 
 ```css
 /* admin, user의 index.css */
 @import "tailwindcss";
-@import "@ssu-it-support/passu-ui/theme.css";
+@import "@ssu-student-union/passu-ui/theme.css";
 ```
 
 ### 로컬에서 앱과 함께 개발하기
@@ -120,19 +130,19 @@ import { Button, cn } from "@ssu-it-support/passu-ui";
 
 ```bash
 pnpm link ../ui    # 링크
-pnpm unlink @ssu-it-support/passu-ui && pnpm install    # 해제
+pnpm unlink @ssu-student-union/passu-ui && pnpm install    # 해제
 ```
 
 링크로 바뀐 `package.json`·lockfile은 커밋하지 않도록 주의합니다.
 
 ### 릴리스
 
-[Changesets](https://github.com/changesets/changesets)로 버전을 관리하고 npm에 배포합니다.
+[Changesets](https://github.com/changesets/changesets)로 버전을 관리하고 GitHub Packages에 배포합니다.
 
 1. 사용자에게 영향이 있는 변경이면 PR에 `pnpm changeset`으로 만든 changeset 파일을 함께 커밋합니다.
 2. `main`에 머지되면 GitHub Actions가 "chore: 패키지 버전 업데이트" PR을 자동으로 엽니다.
-3. 그 PR을 머지하면 npm 배포와 함께 `v{버전}` 태그·GitHub Release가 만들어집니다. (npm Trusted Publisher로 인증하므로 토큰은 필요 없습니다)
-4. 앱에서 `pnpm up @ssu-it-support/passu-ui`로 올립니다.
+3. 그 PR을 머지하면 GitHub Packages 배포와 함께 `v{버전}` 태그·GitHub Release가 만들어집니다.
+4. 앱에서 `pnpm up @ssu-student-union/passu-ui`로 올립니다.
 
 ### Storybook 배포
 
