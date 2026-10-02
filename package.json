@@ -1,6 +1,6 @@
 {
   "name": "@ssu-it-support/passu-ui",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "PASSU admin·user 앱이 공유하는 UI 컴포넌트 라이브러리",
   "repository": {
     "type": "git",
