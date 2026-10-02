@@ -11,6 +11,7 @@ export * from "./components/atoms/header";
 export * from "./components/atoms/icon";
 export * from "./components/atoms/icons";
 export * from "./components/atoms/logo";
+export * from "./components/atoms/meta-list";
 export * from "./components/atoms/popover";
 export * from "./components/atoms/radio";
 export * from "./components/atoms/spinner";

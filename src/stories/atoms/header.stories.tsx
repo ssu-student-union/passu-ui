@@ -1,22 +1,24 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Badge } from "@/components/atoms/badge";
 import { Button } from "@/components/atoms/button";
-import { Header } from "@/components/atoms/header";
+import { PageHeader, SectionHeader } from "@/components/atoms/header";
+import { MetaList } from "@/components/atoms/meta-list";
 
 const meta = {
   title: "Atoms/Header",
-  component: Header,
+  component: PageHeader,
   parameters: {
     docs: {
       description: {
         component: [
-          "화면 상단 제목 영역이에요. `variant`로 세 가지를 나눠요.",
+          "화면의 제목 영역이에요. 위계에 따라 두 컴포넌트로 나눠요.",
           "",
-          "- `event`: 행사 상세 헤더예요. 제목(32px) 아래에 `badge`와 `meta`(날짜 · 시간 · 장소)를 두고, 아래쪽 구분선이 있어요.",
-          "- `page`: 페이지 헤더예요. 제목(36px Bold)과 선택 `description`, 아래쪽 구분선이 있어요.",
-          "- `subtitle`(기본): 섹션 소제목이에요. 제목(24px)과 `description`만 있고 구분선이 없어요.",
+          "- `PageHeader`: 페이지 맨 위 제목이에요. 제목(36px Bold)과 선택 `description`, 아래쪽 구분선이 있어요.",
+          "- `SectionHeader`: 페이지 안 섹션의 소제목이에요. 제목(24px)과 `description`만 있고 구분선이 없어요.",
           "",
-          '오른쪽 끝 버튼은 `action`으로 넘겨요. `Button`의 `size="md"`를 쓰고, 폭은 `layout="group"`(200px, 페이지·이벤트) 또는 `layout="single"`(220px, 소제목)로 맞춰요.',
+          "제목 아래에 더 넣을 내용(뱃지, `MetaList` 등)은 `children`으로 넘겨요.",
+          "",
+          '오른쪽 끝 버튼은 `action`으로 넘겨요. `Button`의 `size="md"`를 쓰고, 폭은 `layout="group"`(200px, 페이지) 또는 `layout="single"`(220px, 섹션)으로 맞춰요.',
         ].join("\n"),
       },
     },
@@ -24,8 +26,10 @@ const meta = {
   args: {
     title: "Title",
   },
+  // JSX를 받는 prop은 Controls에서 React 요소 내부가 그대로 펼쳐지므로 편집 대상에서 뺀다
   argTypes: {
-    variant: { control: "inline-radio", options: ["event", "page", "subtitle"] },
+    action: { control: false },
+    children: { control: false },
   },
   decorators: [
     Story => (
@@ -34,39 +38,13 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta<typeof Header>;
+} satisfies Meta<typeof PageHeader>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Event: Story = {
-  args: {
-    variant: "event",
-    title: "행사명",
-    badge: (
-      <Badge
-        size="lg"
-        theme="brand"
-      >
-        진행 중
-      </Badge>
-    ),
-    meta: ["2000년 00월 00일", "00:00", "행사 장소"],
-    action: (
-      <Button
-        size="md"
-        variant="line"
-        layout="group"
-      >
-        목록으로
-      </Button>
-    ),
-  },
-};
-
 export const Page: Story = {
   args: {
-    variant: "page",
     action: (
       <Button
         size="md"
@@ -83,23 +61,51 @@ export const PageWithDescription: Story = {
   args: { ...Page.args, description: "Description" },
 };
 
-export const Subtitle: Story = {
+/** 행사 상세처럼 제목 아래에 뱃지와 메타 줄을 두는 예시예요. */
+export const PageWithChildren: Story = {
   args: {
-    variant: "subtitle",
-    title: "Subtitle",
-    description: "Description",
+    title: "행사명",
     action: (
       <Button
         size="md"
-        theme="brand"
-        layout="single"
+        variant="line"
+        layout="group"
       >
-        버튼
+        목록으로
       </Button>
+    ),
+    children: (
+      <div className="flex items-center gap-2">
+        <Badge
+          size="lg"
+          theme="brand"
+        >
+          진행 중
+        </Badge>
+        <MetaList items={["2000년 00월 00일", "00:00", "행사 장소"]} />
+      </div>
     ),
   },
 };
 
-export const TitleOnly: Story = {
-  args: { variant: "subtitle", title: "Subtitle" },
+export const Section: Story = {
+  render: () => (
+    <SectionHeader
+      title="Subtitle"
+      description="Description"
+      action={
+        <Button
+          size="md"
+          theme="brand"
+          layout="single"
+        >
+          버튼
+        </Button>
+      }
+    />
+  ),
+};
+
+export const SectionTitleOnly: Story = {
+  render: () => <SectionHeader title="Subtitle" />,
 };
