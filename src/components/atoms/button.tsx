@@ -27,7 +27,7 @@ const buttonVariants = tv({
         "bg-[var(--btn-subtle-bg)] text-[var(--btn-subtle-fg)] hover:bg-[var(--btn-subtle-bg-hover)] active:bg-[var(--btn-subtle-bg-hover)]",
       line: "border border-border-default bg-[var(--btn-subtle-bg)] text-[var(--btn-subtle-fg)] hover:bg-[var(--btn-subtle-bg-hover)] active:bg-[var(--btn-subtle-bg-hover)]",
       ghost:
-        "bg-transparent text-[var(--btn-subtle-fg)] active:bg-none disabled:bg-transparent disabled:text-[var(--btn-subtle-fg)] disabled:opacity-[0.32]",
+        "bg-transparent text-[var(--btn-subtle-fg)] hover:bg-[var(--btn-subtle-bg-hover)] active:bg-[var(--btn-subtle-bg-hover)] disabled:bg-transparent disabled:text-[var(--btn-subtle-fg)] disabled:opacity-[0.32]",
     },
     layout: {
       fill: "w-full",
