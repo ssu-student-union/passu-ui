@@ -9,6 +9,7 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 permissions:
   contents: write
   pull-requests: write
+  id-token: write
 
 jobs:
   release:
@@ -33,21 +34,25 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # 버전 업데이트 PR이 머지되어 새 버전이 main에 올라오면 v{버전} 태그와 GitHub Release를 만듭니다.
-      # 앱은 이 태그를 Git 의존성으로 참조합니다. (npm에는 배포하지 않습니다)
+      # 버전 업데이트 PR이 머지되어 새 버전이 main에 올라오면 npm에 배포하고 v{버전} 태그와 GitHub Release를 만듭니다.
       # changesets/action의 publish는 CLI 출력의 "New tag:"로 릴리스를 판단하는데,
-      # 현재 CLI는 "Created git tags:"로 출력해 태그가 push되지 않아서 직접 만듭니다.
-      # 태그가 이미 있으면 아무것도 하지 않으므로 일반 머지에서도 안전합니다.
-      - name: Tag and release
+      # 현재 CLI는 "Created git tags:"로 출력해 동작하지 않으므로 직접 배포합니다.
+      # 이미 배포된 버전이면 아무것도 하지 않으므로 일반 머지에서도 안전합니다.
+      - name: Publish to npm
         if: steps.changesets.outputs.hasChangesets == 'false'
         run: |
-          tag="v$(node -p "require('./package.json').version")"
-          if git ls-remote --exit-code --tags origin "refs/tags/$tag" > /dev/null; then
-            echo "$tag 태그가 이미 있습니다."
+          name="$(node -p "require('./package.json').name")"
+          version="$(node -p "require('./package.json').version")"
+          if npm view "$name@$version" version > /dev/null 2>&1; then
+            echo "$name@$version은 이미 배포되어 있습니다."
             exit 0
           fi
+          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
+          pnpm publish --no-git-checks
+          tag="v$version"
           git tag "$tag"
           git push origin "$tag"
-          gh release create "$tag" --title "${tag#v}" --generate-notes --verify-tag
+          gh release create "$tag" --title "$version" --generate-notes --verify-tag
         env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
