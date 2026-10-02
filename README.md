@@ -131,7 +131,7 @@ pnpm unlink @ssu-it-support/passu-ui && pnpm install    # 해제
 
 1. 사용자에게 영향이 있는 변경이면 PR에 `pnpm changeset`으로 만든 changeset 파일을 함께 커밋합니다.
 2. `main`에 머지되면 GitHub Actions가 "chore: 패키지 버전 업데이트" PR을 자동으로 엽니다.
-3. 그 PR을 머지하면 npm 배포와 함께 `v{버전}` 태그·GitHub Release가 만들어집니다. (레포 시크릿 `NPM_TOKEN` 필요)
+3. 그 PR을 머지하면 npm 배포와 함께 `v{버전}` 태그·GitHub Release가 만들어집니다. (npm Trusted Publisher로 인증하므로 토큰은 필요 없습니다)
 4. 앱에서 `pnpm up @ssu-it-support/passu-ui`로 올립니다.
 
 ### Storybook 배포
