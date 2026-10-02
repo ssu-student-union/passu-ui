@@ -1,5 +1,10 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import type { ComponentProps } from "react";
+import {
+  dialogContentClassName,
+  dialogFooterClassName,
+  dialogOverlayClassName,
+} from "@/components/atoms/dialog-styles";
 import { cn } from "@/utils/cn";
 
 const Dialog = DialogPrimitive.Root;
@@ -18,18 +23,14 @@ type DialogContentProps = ComponentProps<typeof DialogPrimitive.Content>;
 function DialogContent({ className, ...props }: DialogContentProps) {
   return (
     <DialogPrimitive.Portal>
-      <DialogPrimitive.Overlay className="data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black-alpha-50 data-[state=closed]:animate-out data-[state=open]:animate-in" />
+      <DialogPrimitive.Overlay className={dialogOverlayClassName} />
       <DialogPrimitive.Content
         // 열자마자 첫 번째 항목에 포커스 링이 뜨지 않도록 모달 자체에 포커스를 준다. Tab을 누르면 첫 항목으로 들어간다
         onOpenAutoFocus={event => {
           event.preventDefault();
           (event.currentTarget as HTMLElement).focus();
         }}
-        className={cn(
-          "fixed top-1/2 left-1/2 z-50 flex max-h-[calc(100dvh-2rem)] w-fit max-w-[calc(100vw-2rem)] -translate-x-1/2 -translate-y-1/2 flex-col gap-8 overflow-y-auto rounded-16 border border-border-default bg-bg-canvas px-10 py-6 text-fg-default shadow-key-regular outline-none backdrop-blur-[40px]",
-          "data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[state=closed]:animate-out data-[state=open]:animate-in",
-          className,
-        )}
+        className={cn(dialogContentClassName, "w-fit gap-8 px-10 py-6", className)}
         {...props}
       />
     </DialogPrimitive.Portal>
@@ -75,7 +76,7 @@ function DialogDescription({
 function DialogFooter({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
-      className={cn("grid w-full auto-cols-fr grid-flow-col gap-2", className)}
+      className={cn(dialogFooterClassName, className)}
       {...props}
     />
   );
