@@ -45,6 +45,7 @@ jobs:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
       - name: Publish to GitHub Packages
+        id: publish
         if: steps.changesets.outputs.hasChangesets == 'false'
         run: |
           echo "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
@@ -52,6 +53,7 @@ jobs:
           version="$(node -p "require('./package.json').version")"
           if npm view "$name@$version" version --registry https://npm.pkg.github.com > /dev/null 2>&1; then
             echo "$name@$version은 이미 배포되어 있습니다."
+            echo "published=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           pnpm publish --no-git-checks
@@ -59,6 +61,26 @@ jobs:
           git tag "$tag"
           git push origin "$tag"
           gh release create "$tag" --title "$version" --generate-notes --verify-tag
+          {
+            echo "published=true"
+            echo "name=$name"
+            echo "version=$version"
+          } >> "$GITHUB_OUTPUT"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
+
+      # 새 버전이 실제로 배포됐을 때만 Discord로 알립니다. 웹훅 URL은 조직 시크릿이라 다른 레포에서도 같은 값으로 쓸 수 있습니다.
+      - name: Discord 알림
+        if: steps.publish.outputs.published == 'true'
+        run: |
+          jq -n \
+            --arg title "$NAME@$VERSION 배포" \
+            --arg url "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/releases/tag/v$VERSION" \
+            --arg repo "$GITHUB_REPOSITORY" \
+            '{embeds: [{title: $title, url: $url, description: $repo, color: 5763719}]}' \
+            | curl -fsS -H "Content-Type: application/json" -d @- "$DISCORD_WEBHOOK_URL"
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          NAME: ${{ steps.publish.outputs.name }}
+          VERSION: ${{ steps.publish.outputs.version }}
