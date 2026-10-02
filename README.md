@@ -98,42 +98,20 @@ pnpm run build
 
 ## 📦 다른 앱에서 사용하기
 
-이 레포는 비공개라서 npm에 배포하지 않고, `admin`·`user`가 GitHub의 **릴리스 태그**를 Git 의존성으로 설치합니다.
+[npm](https://www.npmjs.com/package/@ssu-it-support/passu-ui)에 `@ssu-it-support/passu-ui`로 배포되어 있습니다.
 
-```json
-// admin, user의 package.json
-"@passu/ui": "github:ssu-student-union/passu-ui#v0.1.0"
-```
-
-```yaml
-# admin, user의 pnpm-workspace.yaml
-# 설치할 때 ui의 dist를 빌드(prepack)해야 하므로 빌드 실행을 허용합니다.
-allowBuilds:
-  "@passu/ui@git+https://github.com/ssu-student-union/passu-ui.git": true
+```bash
+pnpm add @ssu-it-support/passu-ui
 ```
 
 ```tsx
-import { Button, cn } from "@passu/ui";
+import { Button, cn } from "@ssu-it-support/passu-ui";
 ```
 
 ```css
 /* admin, user의 index.css */
 @import "tailwindcss";
-@import "@passu/ui/theme.css";
-```
-
-### 인증
-
-비공개 레포라서 설치할 때 GitHub 인증이 필요합니다.
-
-- **로컬:** `gh auth login` 또는 SSH 키 등 이미 GitHub에 접근할 수 있으면 별도 설정이 필요 없습니다.
-- **CI·배포 환경:** `passu-ui`의 Contents 읽기 권한이 있는 토큰(`PASSU_UI_PAT`)을 git에 등록한 뒤 설치합니다.
-
-```yaml
-- name: passu-ui 접근 설정
-  run: git config --global url."https://x-access-token:${PASSU_UI_PAT}@github.com/".insteadOf "https://github.com/"
-  env:
-    PASSU_UI_PAT: ${{ secrets.PASSU_UI_PAT }}
+@import "@ssu-it-support/passu-ui/theme.css";
 ```
 
 ### 로컬에서 앱과 함께 개발하기
@@ -142,19 +120,19 @@ import { Button, cn } from "@passu/ui";
 
 ```bash
 pnpm link ../ui    # 링크
-pnpm unlink @passu/ui && pnpm install    # 해제
+pnpm unlink @ssu-it-support/passu-ui && pnpm install    # 해제
 ```
 
 링크로 바뀐 `package.json`·lockfile은 커밋하지 않도록 주의합니다.
 
 ### 릴리스
 
-[Changesets](https://github.com/changesets/changesets)로 버전과 태그를 관리합니다.
+[Changesets](https://github.com/changesets/changesets)로 버전을 관리하고 npm에 배포합니다.
 
 1. 사용자에게 영향이 있는 변경이면 PR에 `pnpm changeset`으로 만든 changeset 파일을 함께 커밋합니다.
 2. `main`에 머지되면 GitHub Actions가 "chore: 패키지 버전 업데이트" PR을 자동으로 엽니다.
-3. 그 PR을 머지하면 `v{버전}` 태그와 GitHub Release가 만들어집니다.
-4. 앱에서 의존성의 `#v0.1.0`을 새 태그로 올리고 `pnpm install`합니다.
+3. 그 PR을 머지하면 npm 배포와 함께 `v{버전}` 태그·GitHub Release가 만들어집니다. (레포 시크릿 `NPM_TOKEN` 필요)
+4. 앱에서 `pnpm up @ssu-it-support/passu-ui`로 올립니다.
 
 ### Storybook 배포
 
