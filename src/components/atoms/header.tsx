@@ -1,4 +1,4 @@
-import type { ComponentProps, ReactNode } from "react";
+import { Children, type ComponentProps, Fragment, type ReactNode } from "react";
 import { cn } from "@/utils/cn";
 
 interface HeaderProps extends Omit<ComponentProps<"div">, "title"> {
@@ -46,7 +46,7 @@ type PageHeaderProps = HeaderProps;
 
 /**
  * 페이지 맨 위 제목 영역. 아래쪽 구분선이 있다.
- * 제목 아래에 더 넣을 내용(뱃지, `MetaList` 등)은 `children`으로 넘긴다.
+ * 제목 아래에 더 넣을 내용(뱃지, `PageHeaderMeta` 등)은 `children`으로 넘긴다.
  */
 function PageHeader({ className, ...props }: PageHeaderProps) {
   return (
@@ -56,6 +56,34 @@ function PageHeader({ className, ...props }: PageHeaderProps) {
       titleClassName="text-display1-36"
       {...props}
     />
+  );
+}
+
+interface PageHeaderMetaProps extends Omit<ComponentProps<"div">, "children"> {
+  /** 한 줄로 늘어놓을 항목. 사이에 점이 자동으로 들어간다 (예: 날짜 · 시간 · 장소) */
+  items: ReactNode[];
+}
+
+/** PageHeader 제목 아래 메타 줄. `PageHeader`의 `children`으로 넘긴다 */
+function PageHeaderMeta({ className, items, ...props }: PageHeaderMetaProps) {
+  return (
+    <div
+      className={cn("flex items-center gap-1 text-body3-15 text-fg-alternative", className)}
+      {...props}
+    >
+      {Children.toArray(items).map((item, index) => (
+        // biome-ignore lint/suspicious/noArrayIndexKey: 메타 항목은 순서가 고정된 정적 목록
+        <Fragment key={index}>
+          {index > 0 && (
+            <span
+              aria-hidden
+              className="size-0.5 shrink-0 rounded-full bg-fg-alternative"
+            />
+          )}
+          <span className="whitespace-nowrap">{item}</span>
+        </Fragment>
+      ))}
+    </div>
   );
 }
 
@@ -73,5 +101,5 @@ function SectionHeader({ className, ...props }: SectionHeaderProps) {
   );
 }
 
-export type { PageHeaderProps, SectionHeaderProps };
-export { PageHeader, SectionHeader };
+export type { PageHeaderMetaProps, PageHeaderProps, SectionHeaderProps };
+export { PageHeader, PageHeaderMeta, SectionHeader };

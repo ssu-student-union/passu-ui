@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Badge } from "@/components/atoms/badge";
 import { Button } from "@/components/atoms/button";
-import { PageHeader, SectionHeader } from "@/components/atoms/header";
-import { MetaList } from "@/components/atoms/meta-list";
+import { PageHeader, PageHeaderMeta, SectionHeader } from "@/components/atoms/header";
 
 const meta = {
   title: "Atoms/Header",
@@ -16,7 +15,7 @@ const meta = {
           "- `PageHeader`: 페이지 맨 위 제목이에요. 제목(36px Bold)과 선택 `description`, 아래쪽 구분선이 있어요.",
           "- `SectionHeader`: 페이지 안 섹션의 소제목이에요. 제목(24px)과 `description`만 있고 구분선이 없어요.",
           "",
-          "제목 아래에 더 넣을 내용(뱃지, `MetaList` 등)은 `children`으로 넘겨요.",
+          "제목 아래에 더 넣을 내용(뱃지, `PageHeaderMeta` 등)은 `children`으로 넘겨요.",
           "",
           '오른쪽 끝 버튼은 `action`으로 넘겨요. `Button`의 `size="md"`를 쓰고, 폭은 `layout="group"`(200px, 페이지) 또는 `layout="single"`(220px, 섹션)으로 맞춰요.',
         ].join("\n"),
@@ -82,7 +81,7 @@ export const PageWithChildren: Story = {
         >
           진행 중
         </Badge>
-        <MetaList items={["2000년 00월 00일", "00:00", "행사 장소"]} />
+        <PageHeaderMeta items={["2000년 00월 00일", "00:00", "행사 장소"]} />
       </div>
     ),
   },
