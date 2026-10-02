@@ -100,15 +100,21 @@ pnpm run build
 
 GitHub Packages에 `@ssu-student-union/passu-ui`로 배포됩니다. 패키지는 레포 오른쪽 사이드바의 **Packages**에서 볼 수 있습니다.
 
-GitHub Packages는 설치할 때 인증이 필요합니다. `read:packages` 권한이 있는 토큰을 준비하고(로컬은 `gh auth refresh -s read:packages` 후 `gh auth token`), 앱 레포의 `.npmrc`에 등록합니다.
+GitHub Packages는 설치할 때 인증이 필요합니다. 앱 레포의 `.npmrc`에는 레지스트리만 등록하고, 토큰은 레포에 커밋하지 않고 각자 `~/.npmrc`에 넣습니다.
 
 ```ini
-# admin, user의 .npmrc
+# admin, user의 .npmrc (커밋)
 @ssu-student-union:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=${NPM_TOKEN}
 ```
 
-CI·배포 환경에서는 `NPM_TOKEN` 환경 변수에 같은 토큰을 넣습니다. 이 레포는 비공개이므로 패키지 설정(Package settings → Manage Actions access)에서 앱 레포의 접근도 허용해야 합니다.
+```ini
+# ~/.npmrc (로컬, 커밋 금지) — read:packages 권한이 있는 토큰
+//npm.pkg.github.com/:_authToken=<토큰>
+```
+
+토큰은 `gh auth refresh -h github.com -s read:packages` 후 `gh auth token`으로 얻을 수 있습니다.
+
+CI에서는 `actions/setup-node`의 `registry-url: https://npm.pkg.github.com`과 `NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}`으로 설치합니다. 이 레포는 비공개이므로 패키지 설정(Package settings → Manage Actions access)에서 앱 레포의 접근도 허용해야 합니다.
 
 ```bash
 pnpm add @ssu-student-union/passu-ui
