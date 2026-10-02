@@ -1,5 +1,11 @@
 # @passu/ui
 
+## 1.3.0
+
+### Minor Changes
+
+- 354e75c: Figma `ic/*` 아이콘 컴포넌트 export 추가 (AddIcon, LogoutIcon 등 21종, `Button`의 `leadingIcon`·`trailingIcon`에 바로 사용 가능)
+
 ## 1.2.0
 
 ### Minor Changes
