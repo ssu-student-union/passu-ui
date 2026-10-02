@@ -21,7 +21,7 @@ export const Sizes: Story = {
       />
       <Logo
         {...args}
-        className="w-80"
+        className="w-[20rem]"
       />
     </div>
   ),
