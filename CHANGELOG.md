@@ -1,5 +1,11 @@
 # @passu/ui
 
+## 1.4.1
+
+### Patch Changes
+
+- 3610b9d: npm 배포를 토큰 대신 Trusted Publisher(OIDC) 인증으로 변경
+
 ## 1.4.0
 
 ### Minor Changes
