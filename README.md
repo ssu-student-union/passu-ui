@@ -144,6 +144,17 @@ pnpm unlink @ssu-student-union/passu-ui && pnpm install    # 해제
 3. 그 PR을 머지하면 GitHub Packages 배포와 함께 `v{버전}` 태그·GitHub Release가 만들어집니다.
 4. 앱에서 `pnpm up @ssu-student-union/passu-ui`로 올립니다.
 
+### 릴리스 봇
+
+릴리스 PR·태그·Release는 `github-actions[bot]`이 아니라 전용 GitHub App(릴리스 봇)으로 만듭니다. 조직 레벨 변수·시크릿을 쓰므로 다른 레포의 릴리스 워크플로에도 같은 방식으로 붙일 수 있습니다. (`.github/workflows/release.yml`의 "릴리스 봇 토큰 발급" 단계 참고)
+
+| 종류 | 이름 | 내용 |
+|---|---|---|
+| 조직 변수 | `RELEASE_BOT_CLIENT_ID` | GitHub App의 Client ID |
+| 조직 시크릿 | `RELEASE_BOT_PRIVATE_KEY` | GitHub App의 private key(`.pem` 전체) |
+
+App 권한은 Repository permissions의 **Contents: Read and write**, **Pull requests: Read and write**, **Metadata: Read-only**만 줍니다. 새 레포에서 쓰려면 App을 그 레포에 설치하고, 조직 변수·시크릿의 접근 가능한 레포에 추가하세요. GitHub Packages 배포는 App 토큰으로 인증할 수 없어서 워크플로의 `GITHUB_TOKEN`(`packages: write`)을 그대로 씁니다.
+
 ### Storybook 배포
 
 Cloudflare Workers Builds가 이 레포를 직접 빌드해 Storybook을 Workers 정적 에셋(`wrangler.jsonc`)으로 배포합니다. `main`에 머지되면 운영 배포가 되고, 다른 브랜치와 PR은 미리보기 빌드로 올라갑니다.
