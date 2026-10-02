@@ -1,5 +1,19 @@
 # @passu/ui
 
+## 2.0.0
+
+### Major Changes
+
+- 110c929: Header를 PageHeader·SectionHeader로 분리
+  
+  - `<Header variant="page">` → `<PageHeader>`
+  - `<Header variant="subtitle">` → `<SectionHeader>`
+  - `variant="event"`와 `badge`·`meta` prop은 제거. `<PageHeader>`의 `children`에 `Badge`·`PageHeaderMeta`를 넘긴다
+
+### Minor Changes
+
+- d63167b: 확인용 ConfirmDialog 추가
+
 ## 1.5.1
 
 ### Patch Changes
