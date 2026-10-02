@@ -1,5 +1,11 @@
 # @passu/ui
 
+## 1.4.0
+
+### Minor Changes
+
+- 94f9ad0: Git 태그 의존성 대신 npm(`@ssu-it-support/passu-ui`)으로 배포하도록 전환
+
 ## 1.3.0
 
 ### Minor Changes
