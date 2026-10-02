@@ -66,16 +66,14 @@ PASSU `admin`·`user` 앱이 공유하는 UI 컴포넌트 라이브러리입니�
 
 ## 🚀 시작하기
 
-> pnpm이 필요합니다.
-
 ```bash
-# 의존성 설치 (lefthook 훅도 함께 설치됩니다)
+# 의존성 설치
 pnpm install
 
-# 컴포넌트를 눈으로 확인하는 Storybook 실행 (http://localhost:6006)
+# Storybook 실행 (http://localhost:6006)
 pnpm storybook
 
-# 라이브러리 빌드 (dist/passu-ui.js, dist/passu-ui.css, dist/index.d.ts 생성)
+# 라이브러리 빌드
 pnpm run build
 ```
 
@@ -83,59 +81,20 @@ pnpm run build
 
 ## 📋 개발 명령어
 
-| 명령어              | 설명                                              |
-| ------------------- | -------------------------------------------------- |
-| `pnpm storybook`     | Storybook 개발 서버 실행 (`src/stories`)           |
-| `pnpm build-storybook` | Storybook 정적 빌드 (`storybook-static/`)       |
-| `pnpm run build`     | 타입체크 → `vite build` → 선언 파일(`.d.ts`) 생성  |
-| `pnpm run lint`      | Biome 린트 검사                                    |
-| `pnpm run lint:fix`  | Biome 린트 자동 수정                               |
-| `pnpm run format:fix`| Biome 자동 포맷                                    |
-| `pnpm run knip`      | 사용하지 않는 파일/의존성/export 검사               |
-| `pnpm changeset`     | 변경 사항과 버전 단위(patch/minor/major) 기록      |
+| 명령어                 | 설명                                              |
+|------------------------|---------------------------------------------------|
+| `pnpm storybook`       | Storybook 개발 서버 실행 (`src/stories`)          |
+| `pnpm build-storybook` | Storybook 빌드 (`storybook-static/`)              |
+| `pnpm run build`       | 타입체크 → `vite build` → 선언 파일(`.d.ts`) 생성 |
+| `pnpm run lint`        | Biome 린트 검사                                   |
+| `pnpm run lint:fix`    | Biome 린트 자동 수정                              |
+| `pnpm run format:fix`  | Biome 자동 포맷                                   |
+| `pnpm run knip`        | 사용하지 않는 파일/의존성/export 검사             |
+| `pnpm changeset`       | 변경 사항과 버전 단위(patch/minor/major) 기록     |
 
 ---
 
 ## 📦 다른 앱에서 사용하기
-
-GitHub Packages에 `@ssu-student-union/passu-ui`로 배포됩니다. 패키지는 레포 오른쪽 사이드바의 **Packages**에서 볼 수 있습니다.
-
-GitHub Packages는 설치할 때 인증이 필요합니다. `read:packages` 권한이 있는 토큰을 준비하고(로컬은 `gh auth refresh -s read:packages` 후 `gh auth token`), 앱 레포의 `.npmrc`에 등록합니다.
-
-```ini
-# admin, user의 .npmrc
-@ssu-student-union:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=${NPM_TOKEN}
-```
-
-CI·배포 환경에서는 `NPM_TOKEN` 환경 변수에 같은 토큰을 넣습니다. 이 레포는 비공개이므로 패키지 설정(Package settings → Manage Actions access)에서 앱 레포의 접근도 허용해야 합니다.
-
-```bash
-pnpm add @ssu-student-union/passu-ui
-```
-
-```tsx
-import { Button, cn } from "@ssu-student-union/passu-ui";
-```
-
-```css
-/* admin, user의 index.css */
-@import "tailwindcss";
-@import "@ssu-student-union/passu-ui/theme.css";
-```
-
-### 로컬에서 앱과 함께 개발하기
-
-배포 전 변경 사항을 앱에서 확인하려면 앱 레포에서 로컬 ui를 링크합니다. 이 레포에서 `pnpm run build`로 `dist/`를 갱신해야 반영됩니다.
-
-```bash
-pnpm link ../ui    # 링크
-pnpm unlink @ssu-student-union/passu-ui && pnpm install    # 해제
-```
-
-링크로 바뀐 `package.json`·lockfile은 커밋하지 않도록 주의합니다.
-
-### 릴리스
 
 [Changesets](https://github.com/changesets/changesets)로 버전을 관리하고 GitHub Packages에 배포합니다.
 
@@ -168,10 +127,3 @@ Cloudflare 대시보드의 Workers & Pages → `passu-ui` → Settings → Build
 - `export`는 선언부에 붙이지 않고 파일 맨 아래에 모아서 씁니다. 타입(`export type { ... }`)을 먼저, 값(`export { ... }`)을 다음에 두고 이름은 알파벳 순으로 정렬합니다 (`toast.tsx` 참고)
 - 순수 함수(`utils/`)는 React/DOM에 의존하지 않습니다
 - 커밋 메시지는 Conventional Commits 타입 프리픽스(`feat:`, `fix:`, `chore:` 등) + 한글 설명으로 작성하며, lefthook의 commit-msg 훅이 커밋 시 자동으로 검사합니다
-
----
-
-## 🔗 관련 레포
-
-- [`../admin`](../admin) — 학생회 관리자·최고 운영자 앱
-- [`../user`](../user) — 참가자(유저) 앱

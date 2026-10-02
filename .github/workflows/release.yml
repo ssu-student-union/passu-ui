@@ -15,15 +15,24 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - name: Create GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ vars.RELEASE_BOT_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_BOT_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
 
-      # mise.toml에 고정된 Node·pnpm 버전을 그대로 사용합니다.
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+
       - uses: jdx/mise-action@c37c93293d6b742fc901e1406b8f764f6fb19dac # v2.4.4
 
       - name: pnpm install
         run: pnpm install --frozen-lockfile
 
-      # 미반영 changeset이 있으면 "버전 업데이트" PR을 엽니다.
       - name: Create a release PR
         id: changesets
         uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d # v1.9.0
@@ -31,13 +40,10 @@ jobs:
           version: pnpm run version-packages
           title: "chore: 패키지 버전 업데이트"
           commit: "chore: 패키지 버전 업데이트"
+          commitMode: github-api
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
-      # 버전 업데이트 PR이 머지되어 새 버전이 main에 올라오면 GitHub Packages에 배포하고 v{버전} 태그와 GitHub Release를 만듭니다.
-      # changesets/action의 publish는 CLI 출력의 "New tag:"로 릴리스를 판단하는데,
-      # 현재 CLI는 "Created git tags:"로 출력해 동작하지 않으므로 직접 배포합니다.
-      # 이미 배포된 버전이면 아무것도 하지 않으므로 일반 머지에서도 안전합니다.
       - name: Publish to GitHub Packages
         if: steps.changesets.outputs.hasChangesets == 'false'
         run: |
@@ -55,4 +61,4 @@ jobs:
           gh release create "$tag" --title "$version" --generate-notes --verify-tag
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
