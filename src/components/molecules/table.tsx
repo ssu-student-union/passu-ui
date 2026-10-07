@@ -16,7 +16,7 @@ const tableCellVariants = tv({
       right: "text-right",
     },
     interactive: {
-      true: "cursor-pointer hover:bg-bg-surface active:bg-[image:linear-gradient(var(--color-black-alpha-5),var(--color-black-alpha-5))]",
+      true: "cursor-pointer hover:bg-bg-surface active:bg-pressed",
     },
   },
   defaultVariants: {

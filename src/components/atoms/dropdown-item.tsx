@@ -13,7 +13,7 @@ function DropdownItem({ className, selected = false, ...props }: DropdownItemPro
       aria-selected={selected}
       tabIndex={-1}
       className={cn(
-        "flex h-[2.25rem] min-w-[6.25rem] cursor-pointer items-center gap-1 overflow-hidden whitespace-nowrap bg-fill-neutral-subtle p-2 text-body5-14 text-fg-alternative hover:bg-fill-neutral-subtle-hovered active:bg-[image:linear-gradient(var(--color-black-alpha-5),var(--color-black-alpha-5))]",
+        "flex h-[2.25rem] min-w-[6.25rem] cursor-pointer items-center gap-1 overflow-hidden whitespace-nowrap bg-fill-neutral-subtle p-2 text-body5-14 text-fg-alternative hover:bg-fill-neutral-subtle-hovered active:bg-pressed",
         className,
       )}
       {...props}

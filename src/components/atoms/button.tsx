@@ -1,11 +1,13 @@
+import { type HTMLMotionProps, motion } from "motion/react";
 import type { ComponentProps } from "react";
 import type { VariantProps } from "tailwind-variants";
 import { cn } from "@/utils/cn";
 import type { IconComponent } from "@/utils/icon";
+import { colorTransition, springs } from "@/utils/motion";
 import { tv } from "@/utils/tv";
 
 const buttonVariants = tv({
-  base: "inline-flex shrink-0 items-center justify-center active:bg-[image:linear-gradient(var(--color-black-alpha-5),var(--color-black-alpha-5))] disabled:pointer-events-none disabled:bg-fill-disabled disabled:text-fg-disabled",
+  base: "inline-flex shrink-0 items-center justify-center active:bg-pressed disabled:pointer-events-none disabled:bg-fill-disabled disabled:text-fg-disabled",
   variants: {
     size: {
       lg: "min-w-[3.5rem] gap-1 rounded-12 p-4 text-body1-16",
@@ -71,10 +73,12 @@ function Button({
   ...props
 }: ButtonProps) {
   return (
-    <button
+    <motion.button
       type="button"
-      className={cn(buttonVariants({ size, theme, variant, layout }), className)}
-      {...props}
+      className={cn(buttonVariants({ size, theme, variant, layout }), colorTransition, className)}
+      whileTap={props.disabled ? undefined : { scale: 0.97 }}
+      transition={springs.press}
+      {...(props as HTMLMotionProps<"button">)}
     >
       {LeadingIcon && <LeadingIcon className={iconSizeClassName[size]} />}
       {children && (
@@ -85,7 +89,7 @@ function Button({
         </span>
       )}
       {TrailingIcon && <TrailingIcon className={iconSizeClassName[size]} />}
-    </button>
+    </motion.button>
   );
 }
 
