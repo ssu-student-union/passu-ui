@@ -9,7 +9,7 @@ const paginationItemVariants = tv({
     selected: {
       true: "bg-fill-brand-subtle text-fg-brand-default",
       false:
-        "bg-bg-canvas text-fg-assistive hover:bg-fill-neutral-subtle-hovered active:bg-[image:linear-gradient(var(--color-black-alpha-5),var(--color-black-alpha-5))] active:text-fg-alternative",
+        "bg-bg-canvas text-fg-assistive hover:bg-fill-neutral-subtle-hovered active:bg-pressed active:text-fg-alternative",
     },
   },
   defaultVariants: {

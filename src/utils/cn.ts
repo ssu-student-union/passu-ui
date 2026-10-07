@@ -21,7 +21,13 @@ const FONT_SIZES = [
   "caption2-12",
 ];
 
-const twMergeConfig = { extend: { theme: { text: FONT_SIZES } } };
+/** theme.css의 `--background-image-pressed`(bg-pressed)는 배경 이미지로 취급해 `bg-none`과 충돌시킨다 */
+const twMergeConfig = {
+  extend: {
+    theme: { text: FONT_SIZES },
+    classGroups: { "bg-image": ["bg-pressed"] },
+  },
+};
 
 const twMerge = extendTailwindMerge(twMergeConfig);
 

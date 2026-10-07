@@ -8,7 +8,7 @@ const headerClassName =
   "flex h-[2.875rem] min-w-[8.75rem] items-center border-border-default border-b bg-fill-neutral p-3 text-body1-16 text-fg-default";
 
 const optionVariants = tv({
-  base: "flex w-full min-w-[8.75rem] cursor-pointer items-center border-border-default border-t bg-fill-neutral-subtle p-3 text-left text-body3-15 text-fg-default hover:bg-fill-neutral-subtle-hovered active:bg-[image:linear-gradient(var(--color-black-alpha-5),var(--color-black-alpha-5))] disabled:pointer-events-none disabled:text-fg-disabled",
+  base: "flex w-full min-w-[8.75rem] cursor-pointer items-center border-border-default border-t bg-fill-neutral-subtle p-3 text-left text-body3-15 text-fg-default hover:bg-fill-neutral-subtle-hovered active:bg-pressed disabled:pointer-events-none disabled:text-fg-disabled",
   variants: {
     selected: {
       /** 하위 목록이 열려 있는 상위 항목. 글자색만 바뀐다 */
