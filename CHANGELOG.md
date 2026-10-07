@@ -1,5 +1,15 @@
 # @passu/ui
 
+## 2.1.0
+
+### Minor Changes
+
+- 0940624: Checkbox·Radio 체크 및 Button 눌림에 motion 기반 애니메이션 추가
+
+### Patch Changes
+
+- 0940624: 날짜 유틸을 dayjs 기반으로 전환
+
 ## 2.0.0
 
 ### Major Changes
