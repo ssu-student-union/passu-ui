@@ -14,12 +14,18 @@ import { cn } from "@/utils/cn";
 import {
   addDays,
   addMonths,
+  formatDate,
+  formatYearMonth,
+  getDayOfMonth,
   getDaysInMonth,
   getWeekdayIndex,
   isSameDay,
   isSameMonth,
+  isWeekend,
+  now,
   startOfDay,
   startOfMonth,
+  withDayOfMonth,
 } from "@/utils/date";
 import { tv } from "@/utils/tv";
 import { useControllableState } from "@/utils/use-controllable-state";
@@ -29,7 +35,7 @@ const WEEKDAYS = ["월", "화", "수", "목", "금", "토", "일"];
 const COLUMNS_CLASS_NAME = "grid-cols-[repeat(7,minmax(2.5rem,1fr))]";
 
 const navButtonClassName =
-  "flex shrink-0 items-center justify-center rounded-full p-1 text-fg-default hover:bg-fill-neutral-subtle-hovered active:bg-[image:linear-gradient(var(--color-black-alpha-5),var(--color-black-alpha-5))] disabled:pointer-events-none disabled:text-fg-disabled";
+  "flex shrink-0 items-center justify-center rounded-full p-1 text-fg-default hover:bg-fill-neutral-subtle-hovered active:bg-pressed disabled:pointer-events-none disabled:text-fg-disabled";
 
 const calendarCellVariants = tv({
   base: "flex h-[2.25rem] min-w-10 items-center justify-center rounded-4 bg-bg-canvas text-caption2-12",
@@ -41,7 +47,7 @@ const calendarCellVariants = tv({
     selected: {
       true: "bg-fill-brand-subtle text-fg-brand-default",
       false:
-        "hover:bg-fill-neutral-subtle-hovered active:bg-[image:linear-gradient(var(--color-black-alpha-5),var(--color-black-alpha-5))] disabled:pointer-events-none disabled:text-fg-disabled",
+        "hover:bg-fill-neutral-subtle-hovered active:bg-pressed disabled:pointer-events-none disabled:text-fg-disabled",
     },
   },
   defaultVariants: {
@@ -149,7 +155,7 @@ function Calendar({
   });
   const [month, setMonth] = useControllableState<Date>({
     prop: monthProp && startOfMonth(monthProp),
-    defaultProp: startOfMonth(defaultMonth ?? valueProp ?? defaultValue ?? new Date()),
+    defaultProp: startOfMonth(defaultMonth ?? valueProp ?? defaultValue ?? now()),
     onChange: onMonthChange,
   });
 
@@ -201,7 +207,7 @@ function CalendarHeader({ className, ...props }: ComponentProps<"div">) {
         aria-live="polite"
         className="whitespace-nowrap text-body1-16"
       >
-        {month.getFullYear()}년 {month.getMonth() + 1}월
+        {formatYearMonth(month)}
       </p>
       <button
         type="button"
@@ -233,20 +239,18 @@ function CalendarGrid({ className, ...props }: ComponentProps<"div">) {
   const pendingFocus = useRef<Date | null>(null);
   const [activeDate, setActiveDate] = useState<Date | null>(null);
 
-  const year = month.getFullYear();
-  const monthIndex = month.getMonth();
   const days = Array.from({ length: getDaysInMonth(month) }, (_, index) => index + 1);
   const blanks = Array.from({ length: getWeekdayIndex(month) }, (_, index) => `blank-${index}`);
 
   // 한 달 안에서 tab으로 들어올 칸: 마지막으로 포커스한 날 > 선택한 날 > 오늘 > 고를 수 있는 첫 날
   const tabStopDay = (() => {
-    const candidates = [activeDate, value, new Date()];
+    const candidates = [activeDate, value, now()];
     for (const candidate of candidates) {
       if (candidate && isSameMonth(candidate, month) && !isDisabled(candidate)) {
-        return candidate.getDate();
+        return getDayOfMonth(candidate);
       }
     }
-    return days.find(day => !isDisabled(new Date(year, monthIndex, day))) ?? null;
+    return days.find(day => !isDisabled(withDayOfMonth(month, day))) ?? null;
   })();
 
   // 다른 달로 넘어간 뒤 새 달이 그려지면 옮기려던 날짜에 포커스를 준다
@@ -254,14 +258,14 @@ function CalendarGrid({ className, ...props }: ComponentProps<"div">) {
     const target = pendingFocus.current;
     pendingFocus.current = null;
     if (target && isSameMonth(target, month)) {
-      gridRef.current?.querySelector<HTMLElement>(`[data-day="${target.getDate()}"]`)?.focus();
+      gridRef.current?.querySelector<HTMLElement>(`[data-day="${getDayOfMonth(target)}"]`)?.focus();
     }
   }, [month]);
 
   function moveFocus(next: Date) {
     setActiveDate(next);
     if (isSameMonth(next, month)) {
-      gridRef.current?.querySelector<HTMLElement>(`[data-day="${next.getDate()}"]`)?.focus();
+      gridRef.current?.querySelector<HTMLElement>(`[data-day="${getDayOfMonth(next)}"]`)?.focus();
       return;
     }
     pendingFocus.current = next;
@@ -272,7 +276,7 @@ function CalendarGrid({ className, ...props }: ComponentProps<"div">) {
     const cell = (event.target as HTMLElement).closest<HTMLElement>("[data-day]");
     if (!cell) return;
 
-    const current = new Date(year, monthIndex, Number(cell.dataset.day));
+    const current = withDayOfMonth(month, Number(cell.dataset.day));
     const weekdayIndex = getWeekdayIndex(current);
     const step = ARROW_KEY_STEPS[event.key];
     let next: Date | null = null;
@@ -322,15 +326,14 @@ function CalendarGrid({ className, ...props }: ComponentProps<"div">) {
           />
         ))}
         {days.map(day => {
-          const date = new Date(year, monthIndex, day);
-          const weekday = date.getDay();
+          const date = withDayOfMonth(month, day);
 
           return (
             <CalendarCell
               key={day}
               data-day={day}
-              aria-label={`${year}년 ${monthIndex + 1}월 ${day}일`}
-              weekend={weekday === 0 || weekday === 6}
+              aria-label={formatDate(date)}
+              weekend={isWeekend(date)}
               selected={!!value && isSameDay(value, date)}
               disabled={isDisabled(date)}
               tabIndex={day === tabStopDay ? 0 : -1}
